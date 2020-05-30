@@ -13,12 +13,11 @@
                     <image class="img" :src="userInfo.avatar || iconDefaultSrc"></image>
                     <view class="no-login">
                         <text class="user-name no-login-name fz-18">点击登录</text>
-                        <!-- <text class="tip_desc fz-12">Hi！好久不见</text> -->
                     </view>
                 </view>
             </button>
         </block>
-        <view class="me_content">
+        <!-- <view class="me_content">
             <block v-if="hasLogin">
                 <view class="me-item flex_layout_b" @tap="jumpUrl(1)">
                     <view class="left-wrap">
@@ -33,9 +32,9 @@
                         <text class="tit fz-15">我的订阅</text>
                     </view>
                     <text class="icon-more fz-12 iconfont iconxiangyou"></text>
-                </view>
+                </view> -->
                 <!-- 微信配置 -->
-                <button open-type="contact">
+                <!-- <button open-type="contact">
                     <view class="me-item flex_layout_b">
                         <view class="left-wrap">
                             <image class="img-icon icon" src="https://imgcdn.huanjutang.com/image/2020/03/09/3329521937903df9475e37a7474f9555.png"></image>
@@ -81,7 +80,7 @@
                 </view>
                 <text class="icon-more fz-12 iconfont iconxiangyou"></text>
             </view>
-        </view>
+        </view> -->
         <button open-type="share" class="recommend flex_layout_c">
             <text class="fz-16">推荐学区宝给朋友</text>
             <text class="icon-more fz-12 iconfont iconxiangyou"></text>
@@ -128,8 +127,8 @@
         },
         methods: {
             ...mapActions({
-                setUserInfo: 'setUserInfo',
-                setToken: 'setToken'
+                setUserInfo: 'user/setUserInfo',
+                setToken: 'user/setToken'
             }),
             // 获取用户信息
             async getUserInfo(ev) {
@@ -147,10 +146,10 @@
                     };
                     console.log(params);
                     // 更新微信信息
-                    // const res = await api.user.updateWxInfo(params);
-                    // const { token, userInfo } = res.data;
+                    const res = await api.user.getUserInfo(params);
+                    const { token, userInfo } = res.data;
                     // this.setUserInfo(token);
-                    // this.setUserInfo(userInfo);
+                    this.setUserInfo(userInfo);
                     // uni.navigateTo({
                     //     url: '/subPackages/me/pages/authorize'
                     // });
