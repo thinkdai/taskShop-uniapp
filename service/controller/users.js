@@ -23,6 +23,17 @@ const queryUser = () => {
     })
 }
 
+// 查询openId
+const queryOpenIdUser = (openId) => {
+    const sql = `SELECT * FROM user WHERE 'openId' = ${13333} LIMIT 0,1000`
+    return exec(sql).then(rows => {
+        return rows || {};
+    })
+    .catch(res => {
+        return res;
+    })
+}
+
 //创建用户
 const createUser = (userInfo) => {
     const { nickName, gender, openId, language, city, 
@@ -61,5 +72,6 @@ module.exports = {
     login,
     createUser,
     queryUser,
-    deleteUser
+    deleteUser,
+    queryOpenIdUser
 }

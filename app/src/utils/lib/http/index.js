@@ -82,7 +82,6 @@ export const request = (url, method = 'GET', data = {}, header = {}, map = false
         case 'PUT':
         case 'POST':
             requestOpts['url'] = `${store.getters.host}/${url}`;
-            console.log(requestOpts['url']);
             requestOpts['data'] = Object.assign(data, {
                 version: store.getters.version,
                 _t: Date.now()
@@ -95,19 +94,19 @@ export const request = (url, method = 'GET', data = {}, header = {}, map = false
         originRequestOpts = requestOpts;
         
         // 有token的时候，每个请求都带上token
-        if(url !== 'auth/wx/login') {
-            if(!store.getters.token) {
-                getTokenSync(() => {
-                    requestOpts['header']['http-jwt'] = store.getters.token;
-                    uni.request(requestOpts);
-                });
-            }else {
-                requestOpts['header']['http-jwt'] = store.getters.token;
-                uni.request(requestOpts);
-            }
-        }else {
+        // if(url !== 'user/info') {
+        //     if(!store.getters.token) {
+        //         getTokenSync(() => {
+        //             requestOpts['header']['http-jwt'] = store.getters.token;
+        //             uni.request(requestOpts);
+        //         });
+        //     }else {
+        //         requestOpts['header']['http-jwt'] = store.getters.token;
+        //         uni.request(requestOpts);
+        //     }
+        // }else {
             uni.request(requestOpts);
-        }
+        // }
     });
 };
 

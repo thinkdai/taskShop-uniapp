@@ -1,8 +1,10 @@
 // 获取配置路径
-// const path = process.env.NODE_ENV !== 'production' ? '../../config/dev/index.js' : '../../config/prod/index.js';
-// console.log(path)
-// const conf = require(`${path}`);
-const conf = require('../../config/dev/index.js');
+let conf;
+if (process.env.NODE_ENV !== 'production') {
+    conf = require('../../config/dev/index.js');
+} else {
+    conf = require('../../config/prod/index.js');
+}
 
 console.log(conf)
 const state = {

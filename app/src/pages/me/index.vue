@@ -140,13 +140,13 @@
                     codeStr = await util.wxLogin(); 
                     const params = {
                         iv,
-                        encryptData: encryptedData,
+                        encryptedData: encryptedData,
                         code: codeStr,
                         token: this.$store.getters.token
                     };
                     console.log(params);
                     // 更新微信信息
-                    const res = await api.user.getUserInfo(params);
+                    const res = await api.user.updateWxInfo(params);
                     const { token, userInfo } = res.data;
                     // this.setUserInfo(token);
                     this.setUserInfo(userInfo);
