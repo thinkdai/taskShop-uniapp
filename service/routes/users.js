@@ -106,7 +106,7 @@ router.get('/info', async function(req, res, next) {
                 );
             } else {
                 //设置token
-                token.setToken({...sqlRes[0]});
+                token.setToken({...sqlRes[0], res});
                 res.json(
                     new SuccessModel(sqlRes, '获取用户信息成功')
                 );
