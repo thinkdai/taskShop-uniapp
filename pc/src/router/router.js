@@ -1,10 +1,11 @@
 
 // 1. 定义 (路由) 组件。
-const Login = () => import(/* webpackChunkName: "login" */ '../page/admin/login.vue');
+const Login = () => import(/* webpackChunkName: "login" */ '../page/login/login.vue');
 
 // 2. 定义路由
 const routes = [
-  { path: '/', redirect: "/login", }
+  { path: '/', redirect: "/login" },
+  { path: '/login', name: 'Login', component: Login, meta: { requireLogin: false, title: '登录' } },
 ]
 
 // 3. 创建 router 实例，然后传 `routes` 配置
@@ -22,7 +23,6 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     next()
-    
   }
 })
 

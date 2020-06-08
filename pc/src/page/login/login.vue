@@ -6,7 +6,7 @@
         <div class="login-form">
           <section class="title">
             <img src="../../img/login/icon.png" alt="">
-            <h4>管理系统登录</h4>
+            <h4>任务商城管理系统登录</h4>
           </section>
           <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
               <el-form-item label="用户名" prop="username">
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { loginAPI } from "@API/login"
+import api from "@API/index";
 import { mutations, store } from '../../store/store'
 
 export default {
@@ -40,8 +40,8 @@ export default {
           username: ''
         },
         rules: {
-          pass: [ { required: true, message: '请输入密码', trigger: 'blur' },],
-          username: [ { required: true, message: '请输入用户名', trigger: 'blur' },]
+          pass: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+          username: [ { required: true, message: '请输入用户名', trigger: 'blur' }]
         }
       };
     },
@@ -54,7 +54,7 @@ export default {
               username,
               password: pass
             }
-            loginAPI(params).then(res => {
+            api.user.loginAPI(params).then(res => {
               let { code, data } = res;
               if(code == 200) {
                 mutations.setName(data.username);

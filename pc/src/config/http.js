@@ -3,11 +3,11 @@ import router from "../router/router"
 import { mutations } from "../store/store"
 
 // 创建axios实例
-var instance = axios.create({    timeout: 1000 * 12});
+var instance = axios.create({timeout: 1000 * 12});
 
 //判断环境变量
 if(process.env.NODE_ENV == 'development') {
-    instance.defaults.baseURL = '/api'
+    instance.defaults.baseURL = '/api/apiPc'
 }else if(process.env.NODE_ENV == 'mock') {
     instance.defaults.baseURL = 'http://localhost:8080'
 }else if(process.env.NODE_ENV == 'production') {
