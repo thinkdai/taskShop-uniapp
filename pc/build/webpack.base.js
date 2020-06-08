@@ -33,17 +33,21 @@ module.exports = {
         //loader的执行顺序是从下到上,从右到左
         rules: [
             // js语法规范
-            // {
-            //     test: /\.js$/,
-            //     use: [
-            //        {
-            //             loader: 'eslint-loader',
-            //             options: {
-            //                 enforce: 'pre' //前置loader pre 后置loader post 
-            //             }
-            //        }
-            //     ] 
-            // },
+            {
+                test: /\.js$/,
+                use: [
+                   {
+                        loader: 'eslint-loader',
+                        options: {
+                            enforce: 'pre', //前置loader pre 后置loader post 
+                            emitWarning: true
+                        }
+                   }
+                ],
+                include: [
+                  path.resolve(__dirname, 'src')
+                ]
+            },
             //es6的语法处理
             {
                 test: /\.js$/,
