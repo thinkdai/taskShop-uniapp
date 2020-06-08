@@ -59,8 +59,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // pc/app的接口网关
-app.use('/api-pc', pcRouter);
-app.use('/api-app', appRouter);
+app.use('/apiPc', pcRouter);
+app.use('/apiApp', appRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
