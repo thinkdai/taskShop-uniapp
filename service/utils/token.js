@@ -8,7 +8,7 @@ module.exports = {
   */
   setToken(data){
     //将当前用户的信息通过token加密，并设置失效时间，得到token加密字符串
-    var token = jwt.sign({unionId: data.unionId}, 'myjwttest', {
+    var token = jwt.sign({username: data.username}, 'myjwttest', {
       expiresIn : tokenTime
     });
     //将token加密的字符串通过setCookie的方式传给客户端

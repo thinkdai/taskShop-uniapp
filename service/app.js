@@ -9,8 +9,8 @@ const tokenUtil = require("./utils/token")
 const config = require('./conf/tokenApi');
 const until = require('./utils/untils');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var pcRouter = require('./routes/pc/index');
+var appRouter = require('./routes/app/index');
 
 var app = express();
 
@@ -58,8 +58,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/user', usersRouter);
+// pc/app的接口网关
+app.use('/api-pc', pcRouter);
+app.use('/api-app', appRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
