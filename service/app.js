@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+var fs = require('fs');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -52,7 +53,10 @@ app.use(function(req, res, next) {
 });
 
 // 中间件
-app.use(logger('dev'));
+// 日志处理落地 参考:https://www.cnblogs.com/chyingp/p/node-learning-guide-express-morgan.html
+var accessLogStream = fs.createWriteStream(path.join(__dirname, './log/access.log'), {flags: 'a'});
+app.use(logger('short', {stream: accessLogStream}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

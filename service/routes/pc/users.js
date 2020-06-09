@@ -22,7 +22,6 @@ router.post('/create', async function(req, res, next) {
 });
 
 /* 登录 */
-// 登录
 router.post('/login', function(req, res, next) {
   let { username, password } = req.body;
   let flag = false;
