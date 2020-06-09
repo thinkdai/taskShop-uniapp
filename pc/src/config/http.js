@@ -23,11 +23,11 @@ const $Http = {
     //get请求
     get(url, params) {
         return new Promise((resolve, reject) =>{
-            let vaildParams = Object.assign({ t: new Date().getTime() }, params);       
+            const vaildParams = Object.assign({ t: new Date().getTime() }, params);       
             instance.get(url, {            
                 params: vaildParams        
             }).then(res => {
-                resolve(res);
+                resolve(res.data);
             }).catch(err =>{
                 reject(err);        
             });    
@@ -38,7 +38,7 @@ const $Http = {
         return new Promise((resolve, reject) => {
             instance.post(url, params)
             .then(res => {
-                resolve(res);
+                resolve(res.data);
             })
             .catch(err =>{
                 reject(err);
@@ -54,17 +54,20 @@ instance.interceptors.response.use(
       //拦截响应，做统一处理 
       if (response.data.code) {
         switch (response.data.code) {
-          case 401:
-            // store.state.isLogin = false
-            // 登录状态为没有登录
-            mutations.setName("");
-            sessionStorage.setItem('isLogin', false);
-            router.replace({
-              path: '/login',
-              query: {
-                redirect: encodeURI(router.currentRoute.fullPath)
-              }
-            });
+            case 401:
+                // store.state.isLogin = false
+                // 登录状态为没有登录
+                mutations.setName("");
+                sessionStorage.setItem('isLogin', false);
+                router.replace({
+                    path: '/login',
+                    query: {
+                        redirect: encodeURI(router.currentRoute.fullPath)
+                    }
+                });
+            break;
+            default: 
+            break;
         }
       }
       return response;

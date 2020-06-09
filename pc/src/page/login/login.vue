@@ -64,7 +64,7 @@
                                 if(this.$route.query.redirect) {
                                     this.$router.push({ path: decodeURI(this.$route.query.redirect) });
                                 } else {
-                                    this.$router.push({ path: '/admin/free-check' });
+                                    this.$router.push({ path: '/' });
                                 }
                             } else {
                                 sessionStorage.setItem('isLogin', false);
@@ -84,7 +84,7 @@
 </script>
 
 <style lang="scss" scoped>
-@import "../../style/mixin.scss";
+@import "../../style/mixins.scss";
 
 .login-bg {
   width: 100vw;
