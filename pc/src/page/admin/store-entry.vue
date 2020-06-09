@@ -25,64 +25,64 @@
             <el-table-column
                 label="创建时间">
                 <template slot-scope="scope">
-                  <span>{{ scope.row.createdtime &&　new Date(parseInt(scope.row.createdtime)).toLocaleDateString() }}</span>
+                    <span>{{ scope.row.createdtime &&　new Date(parseInt(scope.row.createdtime)).toLocaleDateString() }}</span>
                 </template>
             </el-table-column>
         </el-table>
-         <div class="block">
+        <div class="block">
             <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
                 :current-page.sync="currentPage"
                 :page-size="pageSize"
                 layout="prev, pager, next, jumper"
-                :total="total">
+                :total="total"
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange">
             </el-pagination>
         </div>
     </div>
 </template>
 
 <script>
-import { queryStoreEntryAPI } from '@API/store-entry'
+    import { queryStoreEntryAPI } from '@API/store-entry';
 
-export default {
-    data() {
-        return {
-            tableData: [],
-            pageSize: 20,
-            currentPage: 1,
-            total: 0,
-        }
-    },
-    created() {
-        this.queryList();
-    },
-    methods: {
-        handleSizeChange(pageSize) {
-            this.pageSize = pageSize;
-            this.queryList();   
+    export default {
+        data() {
+            return {
+                tableData: [],
+                pageSize: 20,
+                currentPage: 1,
+                total: 0
+            };
         },
-        handleCurrentChange(pageindex) {
-            this.currentPage = pageindex;
+        created() {
             this.queryList();
         },
-        queryList() {
-            let params = {
-                pageSize: this.pageSize,
-                pageIndex: this.currentPage
+        methods: {
+            handleSizeChange(pageSize) {
+                this.pageSize = pageSize;
+                this.queryList();   
+            },
+            handleCurrentChange(pageindex) {
+                this.currentPage = pageindex;
+                this.queryList();
+            },
+            queryList() {
+                let params = {
+                    pageSize: this.pageSize,
+                    pageIndex: this.currentPage
+                };
+                queryStoreEntryAPI(params).then(res => {
+                    if(res.code == 200) {
+                        this.tableData = res.data.list;
+                        let { pageIndex, pageSize, total } = res.data.pargData;
+                        this.currentPage = pageIndex;
+                        this.pageSize = pageSize;
+                        this.total = total;
+                    }
+                });
             }
-            queryStoreEntryAPI(params).then(res => {
-                if(res.code == 200) {
-                    this.tableData = res.data.list;
-                    let { pageIndex, pageSize, total } = res.data.pargData;
-                    this.currentPage = pageIndex;
-                    this.pageSize = pageSize;
-                    this.total = total;
-                }
-            })
         }
-    },
-}
+    };
 </script>
 
 <style lang="scss" scoped>

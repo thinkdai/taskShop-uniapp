@@ -26,114 +26,114 @@
                 prop="shopplatform"
                 label="店铺平台">
                 <template slot-scope="scope">
-                  <span>{{ scope.row.shopplatform | filterShopplatform }}</span>
+                    <span>{{ scope.row.shopplatform | filterShopplatform }}</span>
                 </template>
             </el-table-column>
             <el-table-column
                 prop="wantservice"
                 label="想要的服务">
                 <template slot-scope="scope">
-                  <span>{{ scope.row.wantservice | filterWantservice }}</span>
+                    <span>{{ scope.row.wantservice | filterWantservice }}</span>
                 </template>
             </el-table-column>
         </el-table>
         <div class="block">
-          <el-pagination
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
-              :current-page.sync="currentPage"
-              :page-size="pageSize"
-              layout="prev, pager, next, jumper"
-              :total="total">
-          </el-pagination>
+            <el-pagination
+                :current-page.sync="currentPage"
+                :page-size="pageSize"
+                layout="prev, pager, next, jumper"
+                :total="total"
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange">
+            </el-pagination>
         </div>
     </div>
 </template>
 
 <script>
-import { queryfreeCheckAPI } from '@API/free-check'
+    import { queryfreeCheckAPI } from '@API/free-check';
 
-export default {
-    data() {
-        return {
-            tableData: [],
-            pageSize: 20,
-            currentPage: 1,
-            total: 0,
-        }
-    },
-    filters: {
-      filterShopplatform: function (value) {
-        switch(value) {
-          case 0:
-            return '淘宝'
-          break;
-          case 1:
-            return '天猫'
-          break;
-          case 2:
-            return '京东'
-          break;
-          case 3:
-            return '拼多多'
-          break;
-          case 4:
-            return '阿里巴巴'
-          break;
-        }     
-      },
-      filterWantservice(value) {
-        switch(value) {
-          case 0:
-            return '网点运营推广'
-          break;
-          case 1:
-            return '店铺装修设计'
-          break;
-          case 2:
-            return '直通车/砖展'
-          break;
-          case 3:
-            return '店铺诊断'
-          break;
-          case 4:
-            return '打造爆款'
-          break;
-          case 5:
-            return '其他'
-          break;
-        } 
-      }
-    },
-    created() {
-        this.queryList();
-    },
-    methods: {
-        handleSizeChange(pageSize) {
-            this.pageSize = pageSize;
-            this.queryList();   
+    export default {
+        filters: {
+            filterShopplatform: function (value) {
+                switch(value) {
+                case 0:
+                    return '淘宝';
+                    break;
+                case 1:
+                    return '天猫';
+                    break;
+                case 2:
+                    return '京东';
+                    break;
+                case 3:
+                    return '拼多多';
+                    break;
+                case 4:
+                    return '阿里巴巴';
+                    break;
+                }     
+            },
+            filterWantservice(value) {
+                switch(value) {
+                case 0:
+                    return '网点运营推广';
+                    break;
+                case 1:
+                    return '店铺装修设计';
+                    break;
+                case 2:
+                    return '直通车/砖展';
+                    break;
+                case 3:
+                    return '店铺诊断';
+                    break;
+                case 4:
+                    return '打造爆款';
+                    break;
+                case 5:
+                    return '其他';
+                    break;
+                } 
+            }
         },
-        handleCurrentChange(pageindex) {
-            this.currentPage = pageindex;
+        data() {
+            return {
+                tableData: [],
+                pageSize: 20,
+                currentPage: 1,
+                total: 0
+            };
+        },
+        created() {
             this.queryList();
         },
-        queryList() {
-            let params = {
-              pageSize: this.pageSize,
-              pageIndex: this.currentPage
+        methods: {
+            handleSizeChange(pageSize) {
+                this.pageSize = pageSize;
+                this.queryList();   
+            },
+            handleCurrentChange(pageindex) {
+                this.currentPage = pageindex;
+                this.queryList();
+            },
+            queryList() {
+                let params = {
+                    pageSize: this.pageSize,
+                    pageIndex: this.currentPage
+                };
+                queryfreeCheckAPI(params).then(res => {
+                    if(res.code == 200) {
+                        this.tableData = res.data.list;
+                        let { pageIndex, pageSize, total } = res.data.pargData;
+                        this.currentPage = pageIndex;
+                        this.pageSize = pageSize;
+                        this.total = total;
+                    }
+                });
             }
-            queryfreeCheckAPI(params).then(res => {
-                if(res.code == 200) {
-                    this.tableData = res.data.list;
-                    let { pageIndex, pageSize, total } = res.data.pargData;
-                    this.currentPage = pageIndex;
-                    this.pageSize = pageSize;
-                    this.total = total;
-                }
-            })
         }
-    },
-}
+    };
 </script>
 
 <style lang="scss" scoped>

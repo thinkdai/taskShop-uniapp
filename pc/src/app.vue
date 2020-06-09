@@ -6,25 +6,25 @@
     </div>
 </template>
 <script>
-import { store } from "./store/store";
+    import { store } from "./store/store";
 
-export default {
-    data(){
-        return {
-           isShow: true 
+    export default {
+        data() {
+            return {
+                isShow: true 
+            };
+        },
+        computed: {
+            showDialogComputed() {
+                return JSON.parse(store.showDialog);
+            }
+        },
+        watch: {
+            $route(newVal) {
+                this.isShow = newVal.meta.admin ? false : true;
+            }
         }
-    },
-    computed: {
-        showDialogComputed() {
-            return JSON.parse(store.showDialog);
-        }
-    },
-    watch: {
-        $route(newVal) {
-            this.isShow = newVal.meta.admin ? false : true;
-        }
-    }
-}
+    };
 </script>
 <style lang="scss">
     //引入公共文件

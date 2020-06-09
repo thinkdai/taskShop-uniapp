@@ -22,3 +22,6 @@ yarn.lock
 *.njsproj
 *.sln
 *.sw*
+
+# lock file
+package-lock.json

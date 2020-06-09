@@ -1,9 +1,9 @@
-import Vue from 'vue'
+import Vue from 'vue';
 
 export const store = Vue.observable({
   username: '',
   showDialog: false
-})
+});
 
 export const mutations = {
   setName(data) {
@@ -12,4 +12,4 @@ export const mutations = {
   setShowDialog(data) {
     store.showDialog = data;
   }
-}
+};

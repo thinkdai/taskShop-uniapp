@@ -35,15 +35,18 @@ module.exports = {
             // js语法规范
             {
                 test: /\.js$/,
+                enforce: 'pre',
                 use: [
                    {
                         loader: 'eslint-loader',
                         options: {
                             enforce: 'pre', //前置loader pre 后置loader post 
-                            emitWarning: true
+                            emitWarning: true,
+                            fix: true
                         }
                    }
                 ],
+                exclude: /node_modules/,
                 include: [
                   path.resolve(__dirname, 'src')
                 ]
@@ -53,7 +56,7 @@ module.exports = {
                 test: /\.js$/,
                 use: [
                     { loader: 'babel-loader' }
-                ],
+                ]
                 // include: [path.resolve('../src'), path.resolve('../node_modules/element-ui/src'), path.resolve('../node_modules/element-ui/packages')]
                 // include: path.resolve(__dirname,'src'), //包括src下面的js
                 // exclude: /node_modules/ //排除那些js 

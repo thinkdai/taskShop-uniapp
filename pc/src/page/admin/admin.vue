@@ -1,20 +1,20 @@
 <template>
-    <div class='admin'>
+    <div class="admin">
         <!-- 头部导航 -->
         <section class="header-nav header-fixed">
             <!-- <section class="header-fixed"> -->
-                <h1 class="logo" @click="jumpUrl('/home')">
-                    <!-- <router-link to="/home"> -->
-                        <img src="../../img/banner/logo.png" />
+            <h1 class="logo" @click="jumpUrl('/home')">
+                <!-- <router-link to="/home"> -->
+                <img src="../../img/banner/logo.png" />
+                <!-- </router-link> -->
+            </h1>
+            <ul>
+                <li v-for="item in menuList" :key="item.id" @click="jumpUrl(item.url)">
+                    <!-- <router-link :to="item.url"> -->
+                    <span>{{ item.menuName }}</span>
                     <!-- </router-link> -->
-                </h1>
-                <ul>
-                    <li v-for="item in menuList" :key="item.id" @click="jumpUrl(item.url)">
-                        <!-- <router-link :to="item.url"> -->
-                            <span>{{ item.menuName }}</span>
-                        <!-- </router-link> -->
-                    </li>
-                </ul>
+                </li>
+            </ul>
             <!-- </section> -->
         </section>
         <section class="header-nav"></section>
@@ -32,25 +32,25 @@
 </template>
 
 <script>
-export default {
-    data() {
-        return {
-            menuList: [
-                {id: 0, menuName: '免费诊断数据', url: 'free-check' },
-                {id: 1, menuName: '店铺入驻数据', url: 'store-entry' },
-                {id: 2, menuName: '用户管理', url: 'user'},
-                {id: 3, menuName: '文章管理', url: 'article'},
-                {id: 4, menuName: '轮播图管理', url: 'banner'},
-            ],
-            navTitle: ''
+    export default {
+        data() {
+            return {
+                menuList: [
+                    {id: 0, menuName: '免费诊断数据', url: 'free-check' },
+                    {id: 1, menuName: '店铺入驻数据', url: 'store-entry' },
+                    {id: 2, menuName: '用户管理', url: 'user'},
+                    {id: 3, menuName: '文章管理', url: 'article'},
+                    {id: 4, menuName: '轮播图管理', url: 'banner'}
+                ],
+                navTitle: ''
+            };
+        },
+        methods: {
+            jumpUrl(url) {
+                url && this.$router.push({ path: url });
+            }
         }
-    },
-    methods: {
-        jumpUrl(url) {
-            url && this.$router.push({ path: url })
-        }
-    }
-}
+    };
 </script>
 
 <style lang="scss" scoped>

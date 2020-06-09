@@ -23,12 +23,11 @@ module.exports = {
   'globals': {
       'module':true,
       '$Http': true,
-      'uni': true,
+      'process': true,
       'require': true,
       "__NODE_ENV__": true,
-      "__TABBAR_CONF__": true,
-      "getCurrentPages": true,
-      "getApp": true,
+      "BMap": true,
+      '__dirname': true,
       module: true
   },
   // add your custom rules here

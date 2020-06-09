@@ -6,7 +6,7 @@
             this.OS = getOS()+" "+getDigits() || "未知操作系统"; //系统版本号
             return this;
         } 
-    }
+    };
     function getBrowser() {  // 获取浏览器名
         let rMsie = /(msie\s|trident\/7)([\w\.]+)/;  
         let rTrident = /(trident)\/([\w.]+)/;  
@@ -173,7 +173,7 @@
         if (isWin) {   
             let isWin2K = sUserAgent.indexOf("Windows nt 5.0") > -1 || sUserAgent.indexOf("Windows 2000") > -1;   
             if (isWin2K) return "Win2000";   
-            let isWinXP = sUserAgent.indexOf("Windows nt 5.1") > -1 || sUserAgent.indexOf("Windows XP") > -1  
+            let isWinXP = sUserAgent.indexOf("Windows nt 5.1") > -1 || sUserAgent.indexOf("Windows XP") > -1;  
             sUserAgent.indexOf("Windows XP") > -1;   
             if (isWinXP) return "WinXP";   
             let isWin2003 = sUserAgent.indexOf("Windows nt 5.2") > -1 || sUserAgent.indexOf("Windows 2003") > -1;   
@@ -189,7 +189,7 @@
         }  
         return "其他";
     }
-    function getDigits(){ //判断当前操作系统的版本号 
+    function getDigits() { //判断当前操作系统的版本号 
         let sUserAgent = navigator.userAgent.toLowerCase();   
         let is64 = sUserAgent.indexOf("win64") > -1 || sUserAgent.indexOf("wow64") > -1;  
         if (is64) {  

@@ -5,25 +5,25 @@ const Login = () => import(/* webpackChunkName: "login" */ '../page/login/login.
 // 2. 定义路由
 const routes = [
   { path: '/', redirect: "/login" },
-  { path: '/login', name: 'Login', component: Login, meta: { requireLogin: false, title: '登录' } },
-]
+  { path: '/login', name: 'Login', component: Login, meta: { requireLogin: false, title: '登录' } }
+];
 
 // 3. 创建 router 实例，然后传 `routes` 配置
 const router = new VueRouter({
   routes
-})
+});
 
 // 权限控制
 router.beforeEach((to, from, next) => {
   if(to.meta.requireLogin) {
     if(sessionStorage.getItem('isLogin')) {
-      next()
+      next();
     }else {
-      next({ path: '/login' })
+      next({ path: '/login' });
     }
   } else {
-    next()
+    next();
   }
-})
+});
 
-export default router
+export default router;
