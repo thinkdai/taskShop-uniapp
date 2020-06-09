@@ -1,6 +1,6 @@
-let { smart } = require('webpack-merge')
-let base = require('./webpack.base.js')
-let Webpack = require("webpack")
+let { smart } = require('webpack-merge');
+let base = require('./webpack.base.js');
+let Webpack = require("webpack");
 
 module.exports = smart(base,{
     mode: 'development',
@@ -40,6 +40,6 @@ module.exports = smart(base,{
             'process.env': {
                 NODE_ENV: JSON.stringify("development")
             }
-        }), 
+        })
     ]
-})
+});

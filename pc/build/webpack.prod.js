@@ -1,7 +1,7 @@
-const {smart} = require('webpack-merge')
-const base = require('./webpack.base.js')
-const webpack = require("webpack")
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const {smart} = require('webpack-merge');
+const base = require('./webpack.base.js');
+const webpack = require("webpack");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = smart(base,{
     mode: 'production',
@@ -31,7 +31,7 @@ module.exports = smart(base,{
         //压缩js代码
             new UglifyJsPlugin({
                 sourceMap: true, //源码隐射
-                parallel: true, //并发打包
+                parallel: true //并发打包
                 // uglifyOptions: {
                 //     ecma: 7, //支持ECMA8规范
                 //     drop_console: true, //移出console
@@ -59,4 +59,4 @@ module.exports = smart(base,{
             `
         )
     ]
-})
+});

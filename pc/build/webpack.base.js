@@ -1,6 +1,6 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin') //把打包后的结果插入到模板中
-const { CleanWebpackPlugin } = require('clean-webpack-plugin') //每次打包都删除dist目录
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin'); //把打包后的结果插入到模板中
+const { CleanWebpackPlugin } = require('clean-webpack-plugin'); //每次打包都删除dist目录
 const VueLoaderPlugin = require('vue-loader/lib/plugin'); //vue-loader15.*之后,必须配合这个plugin
 
 module.exports = {
@@ -126,4 +126,4 @@ module.exports = {
         //配合vue-loader
         new VueLoaderPlugin() 
     ]   
-}
+};
