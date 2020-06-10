@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "cross-env NODE_ENV=development nodemon ./bin/www",
-    "build": "cross-env NODE_ENV=production nodemon ./bin/www"
+    "build": "cross-env NODE_ENV=production nodemon ./bin/www",
+    "lintfix": "eslint --fix --ext .js ../service"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "cross-env": "^5.2.1",
+    "eslint": "^7.2.0",
     "nodemon": "^1.19.1"
   }
 }
