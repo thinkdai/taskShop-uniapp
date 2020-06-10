@@ -1,7 +1,7 @@
-const env = process.env.NODE_ENV  // 环境参数
+const env = process.env.NODE_ENV;  // 环境参数
 
 // 配置
-let MYSQL_CONF
+let MYSQL_CONF;
 
 if (env === 'development') {
     // mysql
@@ -11,7 +11,7 @@ if (env === 'development') {
         port     : '3306',
         password : 'lyp5520830',
         database : 'task-shop-mysql'
-    }
+    };
 }
 
 if (env === 'production') {
@@ -22,9 +22,9 @@ if (env === 'production') {
         port     : '3306',
         password : 'liyapeng',
         database : 'km-education-table'
-    }
+    };
 }
 
 module.exports = {
     MYSQL_CONF
-}
+};

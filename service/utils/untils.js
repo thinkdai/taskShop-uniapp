@@ -4,16 +4,16 @@ module.exports = {
     cookieToJson(cookie) {
         if (cookie) {
             let cookieArr = cookie.split(";");
-            let obj = {} 
+            let obj = {}; 
             cookieArr.forEach((i) => {
                 let arr = i.split("=");
                 obj[arr[0]] =arr[1];
             });
-            return obj
+            return obj;
         } else {
-            return 'xx'
+            return 'xx';
         }
     }
-}
+};
 
 

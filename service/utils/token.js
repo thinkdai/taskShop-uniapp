@@ -28,9 +28,9 @@ module.exports = {
       user = decoded.user;
       // console.log(decoded);
     }catch(e){
-
+      console.error(e);
     }
     
-    return user
+    return user;
   }
 };

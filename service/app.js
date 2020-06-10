@@ -6,9 +6,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 //引入token的操作,token的白名单
-const tokenUtil = require("./utils/token")
-const config = require('./conf/tokenApi');
-const until = require('./utils/untils');
+// const tokenUtil = require("./utils/token");
+// const config = require('./conf/tokenApi');
+// const until = require('./utils/untils');
 
 var pcRouter = require('./routes/pc/index');
 var appRouter = require('./routes/app/index');
