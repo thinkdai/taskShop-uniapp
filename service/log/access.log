@@ -28,3 +28,13 @@
 ::1 - GET /apiPc/shop/delete?id=1 HTTP/1.1 500 1334 - 6.490 ms
 ::1 - GET /apiPc/shop/delete?id=1 HTTP/1.1 200 49 - 11.681 ms
 ::1 - POST /apiPc/shop/create HTTP/1.1 200 49 - 94.749 ms
+::1 - GET /apiPc/shop/list HTTP/1.1 200 184 - 23.502 ms
+::1 - GET /apiPc/shop/list HTTP/1.1 200 184 - 31.585 ms
+::1 - GET /apiPc/shop/list HTTP/1.1 200 184 - 16.323 ms
+::1 - GET /apiPc/shop/list HTTP/1.1 200 184 - 2.363 ms
+::1 - POST /apiPc/user/login HTTP/1.1 200 40 - 25.167 ms
+::1 - GET /apiPc/user/list HTTP/1.1 200 345 - 5.194 ms
+::1 - GET /apiPc/shop/list HTTP/1.1 200 184 - 2.639 ms
+::1 - GET /apiPc/shop/list HTTP/1.1 200 184 - 3.131 ms
+::1 - POST /apiPc/user/create HTTP/1.1 200 49 - 162.706 ms
+::1 - POST /apiPc/user/create HTTP/1.1 200 49 - 163.629 ms

@@ -1,16 +1,16 @@
 module.exports = {
     root: true,
     parserOptions: {
-      "ecmaVersion": 2017,
-      "sourceType": "module"
+        "ecmaVersion": 2017,
+        "sourceType": "module"
     },
     env: {
-      node: true,
-      browser: false,
-      es6: true
+        node: true,
+        browser: false,
+        es6: true
     },
     extends: [
-      'eslint:recommended'
+        'eslint:recommended'
     ],
     settings: {
     },
@@ -22,6 +22,8 @@ module.exports = {
     },
     // add your custom rules here
     'rules': {
+        // tab缩进
+        // "indent": ["error", 'tab'],
         "semi": ["error", "always"],
         // /*尾部逗号设置*/
         'comma-dangle': ["error", "never"],
@@ -34,7 +36,8 @@ module.exports = {
         // /*要求 switch 语句中有 default 分支*/
         'default-case': "error",
         // /*禁用 eval()*/
-        'no-eval': "error"
+        'no-eval': "error",
+        'space-before-blocks': 2
     }
-  };
+};
   
