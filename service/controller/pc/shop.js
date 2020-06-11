@@ -39,8 +39,8 @@ const editShop = (shopInfo) => {
 };
 
 // 查询店铺
-const queryShop = () => {
-	const sql = "select * from `shop`";
+const queryShop = (id) => {
+	const sql =  id ? "select * from `shop`" : `select * from shop where id = ${id}`;
 	return exec(sql).then(rows => {
 		return rows || {};
 	})
