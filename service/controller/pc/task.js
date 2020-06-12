@@ -2,7 +2,7 @@ const { exec } = require('../../db/mysql');
 // sql
 const { queryShop } = require('./shop');
 
-//创建商铺
+//创建任务
 const createTask = async (taskInfo) => {
     const { 
         orderType, shopTimeFlag, selectShop, linkQQ,
@@ -26,26 +26,46 @@ const createTask = async (taskInfo) => {
 };
 
 // 编辑商铺
-const editTask = (shopInfo) => {
-	const { id, shopUrl, shopName, shopOwner } = shopInfo;
-	let updatetime = new Date().toLocaleString();
+const editTask = async (taskInfo) => {
+	const { 
+		id,
+        orderType, shopTimeFlag, selectShop, linkQQ,
+        activeDay, giftNum, taskName, giftPhoto, taskPhoto,
+        taskUrl, orderPrice, returnPrice, remark } = taskInfo;
 
-	const sql = "update `shop` set shopUrl = " + `'${shopUrl}',` +
-                "shopName = " + `'${shopName}',` +
-                "shopOwner = " + `'${shopOwner}',` +
-                "updatetime = " + `'${updatetime}'` +
-                `where id = ${id}`;
+    const shopRes = await queryShop(selectShop);
+    const selectShopName = shopRes[0].shopName;
+	const createTime = new Date().toLocaleString();
+	const updateTime = createTime;
+
+	const sql = `update task set 
+					orderType = ${orderType},
+					shopTimeFlag = ${shopTimeFlag},
+					selectShopName = '${selectShopName}',
+					linkQQ = '${linkQQ}',
+					activeDay = ${activeDay},
+					giftPhoto = '${giftPhoto}',
+					taskPhoto = '${taskPhoto}',
+					taskName = '${taskName}',
+					taskUrl = '${taskUrl}',
+					giftNum = ${giftNum},
+					orderPrice = ${orderPrice},
+					returnPrice = ${returnPrice},
+					remark = '${remark}',
+					updateTime = '${updateTime}',
+					createTime = '${createTime}'
+					where id = ${id}
+				`;
 
 	return exec(sql).then(rows => { 
 		return rows || {};
-	})
-		.catch(res => {
-			console.log(res);
-			return res;
-		});
+	}).catch(res => {
+        console.log(res);
+        return res;
+    });
 };
 
-// 查询店铺
+// 查询任务
 const queryTask = () => {
 	const sql = "select * from `task`";
 	return exec(sql).then(rows => {
@@ -56,7 +76,7 @@ const queryTask = () => {
 		});
 };  
 
-// 删除商铺
+// 删除任务
 const deleteTask = (id) => {
 
 	const sql = "DELETE FROM `task` WHERE id = " + `${id}`;
