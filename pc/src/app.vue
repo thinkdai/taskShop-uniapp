@@ -1,14 +1,15 @@
 <template>
     <section>
         <section class="app-wrapper flex_layout">
-            <BusiLeftLayout />
+            <!-- 登录页面不需要侧边栏以及底部 -->
+            <BusiLeftLayout v-if="$route.meta.requireLogin" />
             <section class="app-container">
                 <keep-alive>
                     <router-view></router-view>
                 </keep-alive>
             </section>
         </section>
-        <BusiBottom />
+        <BusiBottom v-if="$route.meta.requireLogin" />
     </section>
 </template>
 <script>
@@ -21,7 +22,8 @@
             BusiLeftLayout
         },
         data() {
-            return {};
+            return {
+            };
         }
     };
 </script>
@@ -34,6 +36,7 @@
         .app-container {
             flex: 1;
             min-height: calc(100vh - 50px);
+            background-color: rgb(242, 242, 242);
         }
     }
 </style>

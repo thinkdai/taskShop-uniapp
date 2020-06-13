@@ -15,9 +15,9 @@ const LogManage = () => import(/* webpackChunkName: "logManage" */ '../page/logM
 const routes = [
   { path: '/', redirect: "/pulishTask" },
   { path: '/login', name: 'Login', component: Login, meta: { requireLogin: false, title: '登录' } },
-  { path: '/moneyManage', name: 'MoneyManage', component: MoneyManage, meta: { requireLogin: true, title: '账户管理' } },
   { path: '/pulishTask', name: 'PulishTask', component: PulishTask, meta: { requireLogin: true, title: '发布管理' } },
   { path: '/taskManage', name: 'TaskManage', component: TaskManage, meta: { requireLogin: true, title: '任务管理' } },
+  { path: '/moneyManage', name: 'MoneyManage', component: MoneyManage, meta: { requireLogin: true, title: '账户管理' } },
   { path: '/logManage', name: 'LogManage', component: LogManage, meta: { requireLogin: true, title: '日志管理' } }
 ];
 
