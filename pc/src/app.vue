@@ -41,9 +41,11 @@
     .app-wrapper {
         width: 100vw;
         min-height: calc(100vh - 50px);
+        align-items: flex-start;
         .app-container {
             flex: 1;
             padding: 24px;
+            padding-bottom: 74px;
             min-height: calc(100vh - 50px);
             background-color: rgb(242, 242, 242);
             box-sizing: border-box;

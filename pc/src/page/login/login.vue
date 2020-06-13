@@ -65,7 +65,6 @@
                                 this.setLoginFlag(true);
                                 // 同时将数据存入sessionStorage中
                                 sessionStorage.setItem('isLogin', true);
-                                console.log(this.$route)
                                 // 判断是否带有重定向路径
                                 if(this.$route.query.redirect) {
                                     this.$router.push({ path: decodeURI(this.$route.query.redirect) });

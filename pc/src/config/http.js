@@ -70,6 +70,9 @@ instance.interceptors.response.use(
                 // 登录成功
                 
             break;
+            case 400:
+                // 请求异常
+            break;
             default: 
             break;
         }
