@@ -3,7 +3,7 @@
         <el-row class="container">
             <el-col>
                 <el-menu
-                    default-active="2"
+                    :default-active="0"
                     class="el-menu-vertical-demo">
                     <template v-for="(item, index) in routeArr">                
                         <el-menu-item :index="index" :key="index">

@@ -7,10 +7,13 @@ import "./global.js";
 // import 'element-ui/lib/theme-chalk/index.css';
 //引入路由
 import router from "./router/router.js";
+// 引入 vuex
+import store from './store';
 
 // Vue.use(ElementUI);
 
 new Vue({
     render: h => h(App),
-    router
+    router,
+    store
 }).$mount('#app');

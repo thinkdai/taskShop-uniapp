@@ -1,6 +1,6 @@
 import axios from 'axios';
 import router from "../router/router";
-import { mutations } from "../store/store";
+import store from "../store";
 
 // 创建axios实例
 var instance = axios.create({timeout: 1000 * 12});
@@ -55,9 +55,9 @@ instance.interceptors.response.use(
       if (response.data.code) {
         switch (response.data.code) {
             case 401:
-                // store.state.isLogin = false
                 // 登录状态为没有登录
-                mutations.setName("");
+                store.commit('SET_NAME', '');
+                store.commit('SET_LOGIN_FLAG', false);
                 sessionStorage.setItem('isLogin', false);
                 router.replace({
                     path: '/login',
@@ -65,6 +65,10 @@ instance.interceptors.response.use(
                         redirect: encodeURI(router.currentRoute.fullPath)
                     }
                 });
+            break;
+            case 200:
+                // 登录成功
+                
             break;
             default: 
             break;
