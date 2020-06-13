@@ -7,7 +7,7 @@ module.exports = {
 			let obj = {}; 
 			cookieArr.forEach((i) => {
 				let arr = i.split("=");
-				obj[arr[0]] =arr[1];
+				obj[arr[0].replace(/(^\s*)|(\s*$)/g, "")] =arr[1];
 			});
 			return obj;
 		} else {

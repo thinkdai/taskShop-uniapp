@@ -42,7 +42,6 @@ router.post('/login', function(req, res) {
 	}
 	if(flag) return;
 	login(req.body).then(data => {
-		console.log(data);
 		// username查询到的用户名
 		let { username } = data;
 
