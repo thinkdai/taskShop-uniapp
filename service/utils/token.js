@@ -26,9 +26,9 @@ module.exports = {
 			//如果根据token查到了用户信息，表示校验通过
 			var decoded = jwt.verify(data.token, 'myjwttest');
 			user = decoded.user;
-			console.log(decoded);
+			// console.log(decoded);
 		}catch(e) {
-			console.error(e);
+			console.error('--cookie没有--', e);
 		}
     
 		return user;

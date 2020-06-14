@@ -34,6 +34,7 @@ app.use(function(req, res, next) {
     const token = until.cookieToJson(cookie);
     // 检查token是否有效（过期和非法）
     const user = tokenUtil.checkToken(token);
+    console.log(cookie, token, user);
     if (user) {
       //将当前用户的信息挂在req对象上，方便后面的路由方法使用
       req.user = user;

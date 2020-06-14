@@ -10,11 +10,16 @@ module.exports = {
 		'/apiPc/shop/list',
 		'/apiPc/shop/update',
 		'/apiPc/shop/delete',
+		'/apiPc/upload/img',
+		// 任务
+		'/apiPc/task/list',
+		'/apiPc/task/create',
+		'/apiPc/task/update',
+		'/apiPc/task/delete',
+		// 上传
 		'/apiPc/upload/img'
-		// 查询时不需要校验
-		// '/banner/query',
-		// '/store-entry/create',
-		
+		// 不需要校验
+		// '/apiPc/static/img/*', // 图片预览
 	],
 	uploadPath:'/static/',
 	accessKeySecret: 'abc123'

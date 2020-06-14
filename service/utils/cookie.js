@@ -11,7 +11,7 @@ module.exports = {
 			});
 			return obj;
 		} else {
-			return 'xx';
+			return { token: '' };
 		}
 	}
 };
