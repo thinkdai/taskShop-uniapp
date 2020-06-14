@@ -5,6 +5,7 @@ var shopRouter = require('./shop');
 var taskRouter = require('./task');
 var uploadRouter = require('./upload');
 var staticRouter = require('./static');
+var logRouter = require('./log');
 
 // 用户路由
 router.use('/user', userRouter);
@@ -16,5 +17,7 @@ router.use('/task', taskRouter);
 router.use('/upload', uploadRouter);
 // 静态文件路由
 router.use('/static', staticRouter);
+// 日志路由
+router.use('/log', logRouter);
 
 module.exports = router;

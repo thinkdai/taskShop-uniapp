@@ -17,7 +17,10 @@ module.exports = {
 		'/apiPc/task/update',
 		'/apiPc/task/delete',
 		// 上传
-		'/apiPc/upload/img'
+		'/apiPc/upload/img',
+		// 日志
+		'/apiPc/log/access',
+		'/apiPc/log/error'
 		// 不需要校验
 		// '/apiPc/static/img/*', // 图片预览
 	],

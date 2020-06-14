@@ -1,9 +1,8 @@
 var createError = require('http-errors');
 var express = require('express');
-var fs = require('fs');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+var handleLog  = require('./middleWare/logger');
 
 //引入token的操作,token的白名单
 const tokenUtil = require("./utils/token");
@@ -34,7 +33,7 @@ app.use(function(req, res, next) {
     const token = until.cookieToJson(cookie);
     // 检查token是否有效（过期和非法）
     const user = tokenUtil.checkToken(token);
-    console.log(cookie, token, user);
+
     if (user) {
       //将当前用户的信息挂在req对象上，方便后面的路由方法使用
       req.user = user;
@@ -55,10 +54,6 @@ app.use(function(req, res, next) {
 });
 
 // 中间件
-// 日志处理落地 参考:https://www.cnblogs.com/chyingp/p/node-learning-guide-express-morgan.html
-var accessLogStream = fs.createWriteStream(path.join(__dirname, './log/access.log'), {flags: 'a'});
-app.use(logger('short', {stream: accessLogStream}));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -83,5 +78,8 @@ app.use(function(err, req, res) {
 	res.status(err.status || 500);
 	res.render('error');
 });
+
+// 日志处理落地 参考:https://www.cnblogs.com/chyingp/p/node-learning-guide-express-morgan.html
+app.use(handleLog);
 
 module.exports = app;
