@@ -23,15 +23,57 @@
             </el-form-item>
             <el-form-item label="选择店铺" prop="selectShop">
                 <el-select v-model="ruleForm.selectShop" placeholder="请选择活动区域">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
+                    <el-option 
+                        v-for="item in shopList" 
+                        :key="item.id" 
+                        :label="item.shopName" 
+                        :value="item.id"></el-option> 
                 </el-select>
             </el-form-item>
             <el-form-item label="联系QQ" prop="linkQQ">
-                <el-input v-model="ruleForm.linkQQ"></el-input>
+                <el-input v-model="ruleForm.linkQQ" placeholder="请输入联系QQ"></el-input>
             </el-form-item>
             <el-form-item label="活动天数" prop="activeDay">
-                <el-input v-model="ruleForm.activeDay"></el-input>
+                <el-input v-model="ruleForm.activeDay" placeholder="请输入活动天数"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <div class="fz-20 fb-600 black-color mar-left-100">商品信息</div>
+            </el-form-item>
+            <el-form-item label="试用品名称" prop="taskName">
+                <el-input v-model="ruleForm.taskName" placeholder="请输入试用品名称"></el-input>
+            </el-form-item>
+            <el-form-item label="试用品图片" prop="giftPhoto">
+                <el-input v-model="ruleForm.giftPhoto" placeholder="请输入试用品图片"></el-input>
+            </el-form-item>
+            <el-form-item label="商品链接" prop="taskUrl">
+                <el-input v-model="ruleForm.taskUrl" placeholder="请输入商品链接"></el-input>
+            </el-form-item>
+            <el-form-item label="商品图片" prop="taskPhoto">
+                <el-input v-model="ruleForm.taskPhoto" placeholder="请输入商品链接"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <div class="fz-20 fb-600 black-color mar-left-100">价格与费用</div>
+            </el-form-item>
+            <el-form-item label="试用份数" prop="giftNum">
+                <el-input v-model="ruleForm.giftNum" placeholder="请输入试用份数"></el-input>
+            </el-form-item>
+            <el-form-item label="下单价格" prop="orderPrice">
+                <el-input v-model="ruleForm.orderPrice" placeholder="请输入下单价格"></el-input>
+            </el-form-item>
+            <el-form-item label="返金" prop="orderPrice">
+                <div class="fz-16 black-color">全额返金</div>
+            </el-form-item>
+            <el-form-item>
+                <div class="fz-20 fb-600 black-color mar-left-100">备注</div>
+            </el-form-item>
+            <el-form-item label="备注" prop="remark">
+                <div class="edit_container">
+                    <quill-editor 
+                        v-model="ruleForm.remark" 
+                        ref="myQuillEditor" 
+                        :options="editorOption" >
+                    </quill-editor>
+                </div>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
@@ -44,47 +86,43 @@
 <script>
     import BusiAppHeader from '@component/BusiAppHeader.vue';
     import api from "@API/index";
+    import { quillEditor } from "vue-quill-editor"; //调用编辑器
+    import 'quill/dist/quill.core.css';
+    import 'quill/dist/quill.snow.css';
+    import 'quill/dist/quill.bubble.css';
 
     export default {
         components: {
-            BusiAppHeader
+            BusiAppHeader,
+            quillEditor 
         },
         data() {
             return {
                 orderTypeList: ['淘宝', '天猫', '京东', '拼多多', '阿里巴巴'],
                 shopList: [],
+                editorOption: {},
                 ruleForm: {
                     orderType: 0, // 下单方式
                     shopTimeFlag: 0, // 限制同一店铺拍卖
-                    selectShop: 0, // 选择店铺
+                    selectShop: null, // 选择店铺
                     linkQQ: '', // 联系QQ
-                    activeDay: 15, // 活动天数
+                    activeDay: null, // 活动天数
+                    taskName: '', // 试用品名称
+                    giftPhoto: '', // 试用品图片
+                    taskUrl: '', // 商品链接
+                    taskPhoto: '', // 商品图片
+                    giftNum: null, // 试用份数
+                    returnPrice: null, // 返金
+                    remark: '下单前核对店铺和商品主图，必须完成加购收藏等注意事项的操作！货到以后，必须本人确认收货，必须在旺旺上给商家留言说：本人已签收快递，很满意！' // 备注
                 },
                 rules: {
-                    name: [
-                        { required: true, message: '请输入活动名称', trigger: 'blur' },
-                        { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-                    ],
-                    region: [
-                        { required: true, message: '请选择活动区域', trigger: 'change' }
-                    ],
-                    date1: [
-                        { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
-                    ],
-                    date2: [
-                        { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
-                    ],
-                    type: [
-                        { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
-                    ],
-                    resource: [
-                        { required: true, message: '请选择活动资源', trigger: 'change' }
-                    ],
-                    desc: [
-                        { required: true, message: '请填写活动形式', trigger: 'blur' }
-                    ]
                 }
             };
+        },
+        computed: {
+            editor() {
+                return this.$refs.myQuillEditor.quill;
+            },
         },
         created() {
             this.loadShopData();
@@ -112,13 +150,21 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .pulish-task_wrapper {
     width: 100%;
     height: 100%;
     .demo-ruleForm {
         background-color: #fff;
         padding: 24px 0;
+        padding-right: 30px;
+    }
+}
+.edit_container  {
+    width: 800px;
+    //输入框
+    .ql-container {
+        height: 400px;
     }
 }
 </style>
