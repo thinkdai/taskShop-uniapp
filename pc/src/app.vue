@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="app-outside__wrapper">
         <!-- 头部 -->
         <BusiHeaderLayout v-if="$route.meta.requireLogin" />
         <section class="app-wrapper flex_layout">
@@ -38,15 +38,18 @@
 <style lang="scss">
     //引入公共文件
     @import "./style/common.scss";
+    .app-outside__wrapper {
+        width: 100%;
+    }
     .app-wrapper {
-        width: 100vw;
-        min-height: calc(100vh - 50px);
+        width: 100%;
+        min-height: calc(100vh - 100px);
         align-items: flex-start;
         .app-container {
             flex: 1;
             padding: 24px;
             padding-bottom: 74px;
-            min-height: calc(100vh - 50px);
+            min-height: calc(100vh - 100px);
             background-color: rgb(242, 242, 242);
             box-sizing: border-box;
         }

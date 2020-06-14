@@ -27,7 +27,7 @@
     position: sticky;
     z-index: 10000;
     top: 0;
-    width: 100vw;
+    width: 100%;
     box-sizing: border-box;
     // box-shadow: 0 0 5px #888;
     border-bottom: 1px solid #ebebeb;

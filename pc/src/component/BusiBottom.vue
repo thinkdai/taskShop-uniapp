@@ -16,7 +16,7 @@
     position: fixed;
     z-index: 10000;
     bottom: 0;
-    width: 100vw;
+    width: 100%;
     box-sizing: border-box;
     border-top: 1px solid #e2e2e2;
     height: 50px;
