@@ -60,7 +60,7 @@
             <el-form-item label="下单价格" prop="orderPrice">
                 <el-input v-model="ruleForm.orderPrice" placeholder="请输入下单价格"></el-input>
             </el-form-item>
-            <el-form-item label="返金" prop="orderPrice">
+            <el-form-item label="返金" prop="returnPrice">
                 <div class="fz-16 black-color">全额返金</div>
             </el-form-item>
             <el-form-item>
@@ -105,17 +105,54 @@
                     orderType: 0, // 下单方式
                     shopTimeFlag: 0, // 限制同一店铺拍卖
                     selectShop: null, // 选择店铺
-                    linkQQ: '', // 联系QQ
+                    linkQQ: '392064881', // 联系QQ
                     activeDay: null, // 活动天数
-                    taskName: '', // 试用品名称
-                    giftPhoto: '', // 试用品图片
-                    taskUrl: '', // 商品链接
-                    taskPhoto: '', // 商品图片
+                    taskName: '试用品名称', // 试用品名称
+                    giftPhoto: '试用品图片', // 试用品图片
+                    taskUrl: '商品链接', // 商品链接
+                    taskPhoto: '商品图片', // 商品图片
                     giftNum: null, // 试用份数
+                    orderPrice: null, // 下单价
                     returnPrice: null, // 返金
                     remark: '下单前核对店铺和商品主图，必须完成加购收藏等注意事项的操作！货到以后，必须本人确认收货，必须在旺旺上给商家留言说：本人已签收快递，很满意！' // 备注
                 },
                 rules: {
+                    orderType: [
+                        { required: true, message: '请选择下单方式', trigger: 'change' }
+                    ],
+                    shopTimeFlag: [
+                        { required: true, message: '请选择是否限制同一店铺拍卖', trigger: 'change' }
+                    ],
+                    selectShop: [
+                        { required: true, message: '请选择店铺', trigger: 'change' }
+                    ],
+                    linkQQ: [
+                        { required: true, message: '请输入联系QQ', trigger: 'blur' }
+                    ],
+                    activeDay: [
+                        { required: true, message: '请输入活动天数', trigger: 'blur' }
+                    ],
+                    taskName: [
+                        { required: true, message: '请输入试用品名称', trigger: 'blur' }
+                    ],
+                    giftPhoto: [
+                        { required: true, message: '请输入试用品图片', trigger: 'blur' }
+                    ],
+                    taskUrl: [
+                        { required: true, message: '请输入商品链接', trigger: 'blur' }
+                    ],
+                    taskPhoto: [
+                        { required: true, message: '请输入商品图片', trigger: 'blur' }
+                    ],
+                    giftNum: [
+                        { required: true, message: '请输入试用份数', trigger: 'blur' }
+                    ],
+                    // remark: [
+                    //     { required: true, message: '请输入备注', trigger: 'blur' }
+                    // ],
+                    // returnPrice: [
+                    //     { required: true, message: '请输入返金', trigger: 'blur' }
+                    // ],
                 }
             };
         },
@@ -131,12 +168,14 @@
             async loadShopData() {
                 const res = await api.task.shopList();
                 this.shopList = res.data;
-                console.log(this.shopList);
             },
             submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
+                this.$refs[formName].validate(async (valid) => {
                 if (valid) {
-                    alert('submit!');
+                    // 返金的处理
+                    this.ruleForm.returnPrice = this.ruleForm.orderPrice;
+                    const res = await api.task.createTask(this.ruleForm);
+                    this.resetForm(formName);
                 } else {
                     console.log('error submit!!');
                     return false;
@@ -145,6 +184,19 @@
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
+                this.orderType = 0; // 下单方式
+                this.shopTimeFlag = 0; // 限制同一店铺拍卖
+                this.selectShop = null; // 选择店铺
+                this.linkQQ = ''; // 联系QQ
+                this.activeDay = null; // 活动天数
+                this.taskName = ''; // 试用品名称
+                this.giftPhoto = ''; // 试用品图片
+                this.taskUrl = ''; // 商品链接
+                this.taskPhoto = ''; // 商品图片
+                this.giftNum = null; // 试用份数
+                this.orderPrice = null; // 下单价
+                this.returnPrice = null; // 返金
+                this.remark = '下单前核对店铺和商品主图，必须完成加购收藏等注意事项的操作！货到以后，必须本人确认收货，必须在旺旺上给商家留言说：本人已签收快递，很满意！'; // 备注
             }
         }
     }
