@@ -14,7 +14,7 @@ module.exports = {
 		//将token加密的字符串通过setCookie的方式传给客户端
 		data.res.cookie('token', token, {
 			maxAge: tokenTime,
-			httpOnly: true
+			httpOnly: false
 		});
 	},
 	/*
