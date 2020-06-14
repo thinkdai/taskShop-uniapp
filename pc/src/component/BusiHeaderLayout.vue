@@ -26,7 +26,7 @@
 .header__warpper {
     position: sticky;
     z-index: 10000;
-    bottom: 0;
+    top: 0;
     width: 100vw;
     box-sizing: border-box;
     // box-shadow: 0 0 5px #888;

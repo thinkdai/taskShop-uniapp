@@ -50,6 +50,8 @@
 .left-layout__wrapper, .container, .el-col, .el-menu {
     width: 160px;
     min-height: calc(100vh - 50px);
+    position: sticky;
+    top: 0;
 }
 </style>
 
