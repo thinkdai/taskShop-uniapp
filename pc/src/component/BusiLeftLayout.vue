@@ -49,9 +49,9 @@
 <style lang="scss" scoped>
 .left-layout__wrapper, .container, .el-col, .el-menu {
     width: 160px;
-    min-height: calc(100vh - 50px);
-    position: sticky;
-    top: 0;
+    height: calc(100vh - 100px);
+    position: fixed;
+    top: 50px;
 }
 </style>
 
