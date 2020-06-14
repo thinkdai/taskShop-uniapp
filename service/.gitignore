@@ -3,6 +3,7 @@ node_modules/
 unpackage/
 dist/
 log/*
+static/*
 
 # local env files
 .env.local
