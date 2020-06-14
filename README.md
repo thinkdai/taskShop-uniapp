@@ -1,4 +1,4 @@
-# xqb-uniapp
+# taskShop
 
 ### 概述
 任务商城是一个前后端分离项目，基于uniapp、express、vue为基础的小型网站快速开发框架<font size="5">🔨</font>，统一规定了目录结构、开发规范等范式。
