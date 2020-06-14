@@ -1,6 +1,7 @@
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import { getCookie } from '@until/cookie';
 
 Vue.use(VueRouter);
 
@@ -29,7 +30,8 @@ const router = new VueRouter({
 // 权限控制
 router.beforeEach((to, from, next) => {
   if(to.meta.requireLogin) {
-    if(sessionStorage.getItem('isLogin')) {
+    // 获取cookie中的token
+    if(getCookie('token')) {
       next();
     }else {
       next({ path: '/login' });

@@ -31,6 +31,7 @@
 <script>
     import api from "@API/index";
     import { mapMutations } from 'vuex';
+    import { storage } from '@until/storage';
 
     export default {
         data() {
@@ -63,8 +64,8 @@
                             if(code == 200) {
                                 this.setName(data.username);
                                 this.setLoginFlag(true);
-                                // 同时将数据存入sessionStorage中
-                                sessionStorage.setItem('isLogin', true);
+                                // 同时将数据存入localStorage中
+                                storage.set('userInfo', JSON.stringify(data));
                                 // 判断是否带有重定向路径
                                 if(this.$route.query.redirect) {
                                     this.$router.push({ path: decodeURI(this.$route.query.redirect) });
@@ -74,7 +75,7 @@
                             } else {
                                 this.setName('');
                                 this.setLoginFlag(false);
-                                sessionStorage.setItem('isLogin', false);
+                                storage.set('userInfo', {});
                             }
                         });
                     } else {

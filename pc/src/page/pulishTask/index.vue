@@ -105,12 +105,12 @@
                     orderType: 0, // 下单方式
                     shopTimeFlag: 0, // 限制同一店铺拍卖
                     selectShop: null, // 选择店铺
-                    linkQQ: '392064881', // 联系QQ
+                    linkQQ: '', // 联系QQ
                     activeDay: null, // 活动天数
-                    taskName: '试用品名称', // 试用品名称
-                    giftPhoto: '试用品图片', // 试用品图片
-                    taskUrl: '商品链接', // 商品链接
-                    taskPhoto: '商品图片', // 商品图片
+                    taskName: '', // 试用品名称
+                    giftPhoto: '', // 试用品图片
+                    taskUrl: '', // 商品链接
+                    taskPhoto: '', // 商品图片
                     giftNum: null, // 试用份数
                     orderPrice: null, // 下单价
                     returnPrice: null, // 返金

@@ -2,16 +2,19 @@
 export function setCookie(key,value,param) {
     document.cookie = key + '=' + value + '; expires=' + param.expires + '; path=' + param.path; 
 }
-// 获取cookie
+// 获取cookie 后台设置为httpOnly为false
 export function getCookie (key) {
-    var cookies = document.cookie;
-    var arr = cookies.split(';');
-    if(arr) {
-        for (var i = 0; i < arr.length; i++) {
-            var kv = arr[i].split('=');
-            if(kv[0] == key) {
-                return kv[1];
-            }
-        }
+    var cookie = document.cookie;
+    if (cookie) {
+        let cookieArr = cookie.split(";");
+        let obj = {}; 
+        cookieArr.forEach((i) => {
+            let arr = i.split("=");
+            obj[arr[0].replace(/(^\s*)|(\s*$)/g, "")] =arr[1];
+        });
+
+        return obj[key];
+    } else {
+        return false;
     }
 }

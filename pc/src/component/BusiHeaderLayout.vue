@@ -6,22 +6,25 @@
             </h1>
             <h2 class="title fz-20 mar-left-30">任务系统后台管理系统</h2>
         </div>
-        <div class="right nick-name mar-right-30">{{ userName }}</div>
+        <div class="right nick-name fz-16 mar-right-30 pointer">{{ userName }}</div>
     </div>
 </template>
+
 <script>
+    import { storage } from '@until/storage';
     export default {
         data() {
             return {
+                userName: ''
             };
         },
-        computed: {
-            userName() {
-                return this.$store.getters.username
-            }
+        created() {
+            this.userName = JSON.parse(storage.get('userInfo')).username;
+            console.log(this.userName);
         }
     };
 </script>
+
 <style lang="scss" scoped>
 .header__warpper {
     position: sticky;
