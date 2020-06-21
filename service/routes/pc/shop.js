@@ -40,7 +40,15 @@ router.post('/update', async function(req, res) {
 
 /* 查询商铺 */
 router.get('/list', function(req, res) {
-	queryShop().then(data => {
+	// 校验参数
+	const { page, pageSize } = req.query;
+	const params = {
+		page: page || 1,
+		pageSize: pageSize || 10
+	};
+	queryShop(params).then(data => {
+		data.page = params.page;
+		data.pageSize = params.pageSize;
 		res.json(
 			new SuccessModel(data)
 		);

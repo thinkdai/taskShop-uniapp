@@ -33,36 +33,40 @@ const editTask = async (taskInfo) => {
         activeDay, giftNum, taskName, giftPhoto, taskPhoto,
         taskUrl, orderPrice, returnPrice, remark } = taskInfo;
 
-    const shopRes = await queryShop(selectShop);
-    const selectShopName = shopRes[0].shopName;
-	const createTime = new Date().toLocaleString();
-	const updateTime = createTime;
+	const shopRes = await queryShop(selectShop);
+	if (!shopRes.length) {
+		throw new Error('商铺id错误');
+	} else {
+		const selectShopName = shopRes[0].shopName;
+		const createTime = new Date().toLocaleString();
+		const updateTime = createTime;
 
-	const sql = `update task set 
-					orderType = ${orderType},
-					shopTimeFlag = ${shopTimeFlag},
-					selectShopName = '${selectShopName}',
-					linkQQ = '${linkQQ}',
-					activeDay = ${activeDay},
-					giftPhoto = '${giftPhoto}',
-					taskPhoto = '${taskPhoto}',
-					taskName = '${taskName}',
-					taskUrl = '${taskUrl}',
-					giftNum = ${giftNum},
-					orderPrice = ${orderPrice},
-					returnPrice = ${returnPrice},
-					remark = '${remark}',
-					updateTime = '${updateTime}',
-					createTime = '${createTime}'
-					where id = ${id}
-				`;
+		const sql = `update task set 
+						orderType = ${orderType},
+						shopTimeFlag = ${shopTimeFlag},
+						selectShopName = '${selectShopName}',
+						linkQQ = '${linkQQ}',
+						activeDay = ${activeDay},
+						giftPhoto = '${giftPhoto}',
+						taskPhoto = '${taskPhoto}',
+						taskName = '${taskName}',
+						taskUrl = '${taskUrl}',
+						giftNum = ${giftNum},
+						orderPrice = ${orderPrice},
+						returnPrice = ${returnPrice},
+						remark = '${remark}',
+						updateTime = '${updateTime}',
+						createTime = '${createTime}'
+						where id = ${id}
+					`;
 
-	return exec(sql).then(rows => { 
-		return rows || {};
-	}).catch(res => {
-        console.log(res);
-        return res;
-    });
+		return exec(sql).then(rows => { 
+			return rows || {};
+		}).catch(res => {
+			console.log(res);
+			return res;
+		});
+	}
 };
 
 // 查询任务

@@ -10,7 +10,8 @@ if (env === 'development') {
 		user     : 'root',
 		port     : '3306',
 		password : 'lyp5520830',
-		database : 'task-shop-mysql'
+		database : 'task-shop-mysql',
+		multipleStatements: true
 	};
 }
 
@@ -21,7 +22,8 @@ if (env === 'production') {
 		user     : 'root',
 		port     : '3306',
 		password : 'liyapeng',
-		database : 'km-education-table'
+		database : 'km-education-table',
+		multipleStatements: true
 	};
 }
 

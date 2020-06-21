@@ -11,6 +11,9 @@ const { SuccessModel, ErrorModel } = require('../../model/resModel');
 
 /* 创建商铺 */
 router.post('/create', async function(req, res) {
+	let params = req.body;
+	// 任务状态是未付款
+	params.status = 0;
 	const sqlRes = await createTask(req.body);
 	if (sqlRes.affectedRows == 1) {
 		// 插入成功
@@ -26,22 +29,38 @@ router.post('/create', async function(req, res) {
 
 /* 编辑商铺 */
 router.post('/update', async function(req, res) {
-	const sqlRes = await editTask(req.body);
-	if (sqlRes.affectedRows == 1) {
-		// 编辑成功
-		res.json(
-			new SuccessModel("编辑任务成功")
-		); 
-	} else {
-		res.json(
-			new ErrorModel("编辑任务失败")
-		);
+	try {
+		const sqlRes = await editTask(req.body);
+		if (sqlRes.affectedRows == 1) {
+			// 编辑成功
+			res.json(
+				new SuccessModel("编辑任务成功")
+			); 
+		} else {
+			res.json(
+				new ErrorModel("编辑任务失败")
+			);
+		}
+	} catch(e) {
+		// 错误的处理
+		res.json(new ErrorModel(e || '参数错误'));
 	}
 });
 
 /* 查询商铺 */
 router.get('/list', function(req, res) {
 	queryTask().then(data => {
+		res.json(
+			new SuccessModel(data)
+		);
+	});
+});
+
+/* 查询上下线的任务 */
+router.get('/onlineList', function(req, res) {
+	queryTask().then(data => {
+		// 处理更新时间
+
 		res.json(
 			new SuccessModel(data)
 		);

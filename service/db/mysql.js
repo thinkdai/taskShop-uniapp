@@ -21,6 +21,26 @@ function exec(sql) {
 	return promise;
 }
 
+function execMany(sqlMany) {
+	const promise = new Promise((resolve, reject) => {
+		con.query(sqlMany, (err, result) => {
+			if (err) {
+				reject(err);
+				return;
+			}
+			// 处理
+			console.log(result[1]);
+			const handlerRes = {
+				list: result[0],
+				total: result[1][0]['found_rows()']
+			};
+			resolve(handlerRes);
+		});
+	});
+	return promise;
+}
+
 module.exports = {
-	exec
+	exec,
+	execMany
 };

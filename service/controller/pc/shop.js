@@ -1,4 +1,4 @@
-const { exec } = require('../../db/mysql');
+const { exec, execMany } = require('../../db/mysql');
 
 //创建商铺
 const createShop = (shopInfo) => {
@@ -39,10 +39,13 @@ const editShop = (shopInfo) => {
 };
 
 // 查询店铺
-const queryShop = (id) => {
-	const sql = id ? `select * from shop where id = ${id}` : "select * from `shop`" ;
-
-	return exec(sql).then(rows => {
+const queryShop = ({ id, page, pageSize }) => {
+	const sql = id ?
+			`select * from shop limit ${((+page) - 1) * (+pageSize)}, ${+pageSize} where id = ${id}` 
+			: `select * from shop limit ${((+page) - 1) * (+pageSize)}, ${+pageSize}` ;
+	// 执行两次
+	const sqlRows = "select found_rows()";
+	return execMany(`${sql}; ${sqlRows}`).then(rows => {
 		return rows || {};
 	})
 		.catch(res => {
