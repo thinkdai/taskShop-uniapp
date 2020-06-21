@@ -28,7 +28,7 @@
 <style lang="scss" scoped>
 .header__warpper {
     position: sticky;
-    z-index: 10000;
+    z-index: 900;
     top: 0;
     width: 100%;
     box-sizing: border-box;

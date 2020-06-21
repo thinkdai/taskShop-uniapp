@@ -1,4 +1,4 @@
-// 登录部分
+// 商铺列表
 const shopList = () => $Http.get('shop/list', {});
 // 创建任务
 const createTask = (params) => $Http.post(`task/create`,params);

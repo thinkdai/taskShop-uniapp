@@ -28,6 +28,7 @@
     box-sizing: border-box;
     padding-left: 30px;
     background-color: #fff;
+    border-radius: 5px;
     span {
       font-weight: 600;
       font-size: 18px;
