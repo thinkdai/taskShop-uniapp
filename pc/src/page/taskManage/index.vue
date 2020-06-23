@@ -6,8 +6,8 @@
                 :data="tableData"
                 style="width: 100%">
                 <el-table-column
-                    prop="date"
-                    label="日期"
+                    prop="id"
+                    label="任务id"
                     width="180">
                 </el-table-column>
                 <el-table-column

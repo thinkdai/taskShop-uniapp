@@ -167,7 +167,7 @@
         methods: {
             async loadShopData() {
                 const res = await api.task.shopList();
-                this.shopList = res.data;
+                this.shopList = res.data.list;
             },
             submitForm(formName) {
                 this.$refs[formName].validate(async (valid) => {
@@ -176,6 +176,8 @@
                     this.ruleForm.returnPrice = this.ruleForm.orderPrice;
                     const res = await api.task.createTask(this.ruleForm);
                     this.resetForm(formName);
+                    // 跳转到任务列表
+                    this.$router.push({ path: '/taskManage' })
                 } else {
                     console.log('error submit!!');
                     return false;
