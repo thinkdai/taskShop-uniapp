@@ -53,6 +53,7 @@
             flex: 1;
             padding: 24px;
             padding-bottom: 74px;
+            width: calc(100vw - 208px);
             min-height: calc(100vh - 100px);
             background-color: rgb(242, 242, 242);
             box-sizing: border-box;

@@ -37,7 +37,7 @@
                 this.routeArr = this.$router.options.routes.filter(_ => {
                     return _.meta && _.meta.requireLogin;
                 });
-                console.log(this.routeArr);
+                // console.log(this.routeArr);
             },
             // 跳转路由
             jumpUrl({ path }) {
