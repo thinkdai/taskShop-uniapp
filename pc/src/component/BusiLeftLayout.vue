@@ -5,7 +5,8 @@
                 <el-menu
                     :default-active="0"
                     class="el-menu-vertical-demo">
-                    <template v-for="(item, index) in routeArr">                
+                    <template v-for="(item, index) in routeArr">  
+                        <!-- 只有一级路由 -->
                         <el-menu-item :index="index" :key="index">
                             <div @click="jumpUrl(item)">
                                 <i class="el-icon-menu"></i>
@@ -36,6 +37,7 @@
                 this.routeArr = this.$router.options.routes.filter(_ => {
                     return _.meta && _.meta.requireLogin;
                 });
+                console.log(this.routeArr);
             },
             // 跳转路由
             jumpUrl({ path }) {
