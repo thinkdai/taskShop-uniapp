@@ -41,7 +41,7 @@ const editShop = (shopInfo) => {
 // 查询店铺
 const queryShop = ({ id, page, pageSize }) => {
 	const sql = id ?
-			`select * from shop limit ${((+page) - 1) * (+pageSize)}, ${+pageSize} where id = ${id}` 
+			`select * from shop where id = ${id} limit ${((+page) - 1) * (+pageSize)}, ${+pageSize}` 
 			: `select * from shop limit ${((+page) - 1) * (+pageSize)}, ${+pageSize}` ;
 	// 执行两次
 	const sqlRows = "select found_rows()";

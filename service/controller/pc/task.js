@@ -1,21 +1,26 @@
-const { exec } = require('../../db/mysql');
+const { exec, execMany } = require('../../db/mysql');
 // sql
 const { queryShop } = require('./shop');
 
 //创建任务
 const createTask = async (taskInfo) => {
     const { 
-        orderType, shopTimeFlag, selectShop, linkQQ,
-        activeDay, giftNum, taskName, giftPhoto, taskPhoto,
-        taskUrl, orderPrice, returnPrice, remark } = taskInfo;
+        orderType, limitDay, storeId, qq,
+        days, paiNum, title, givePicUrl, paiPicUrl,
+        paiLinkUrl, paiPrice, returnPrice, remark } = taskInfo;
 
-    const shopRes = await queryShop(selectShop);
-    const selectShopName = shopRes[0].shopName;
+	const shopRes = await queryShop({id: storeId, page: 1, pageSize: 100});
+    const storeName = shopRes.list[0].shopName;
 	const createTime = new Date().toLocaleString();
 	const updateTime = createTime;
 
-	const sql = "insert into `task` (orderType, shopTimeFlag, selectShop, selectShopName, linkQQ, activeDay, giftPhoto, taskPhoto, taskName, taskUrl, giftNum, orderPrice, returnPrice, remark, updateTime, createTime)" +
-                `values (${orderType}, ${shopTimeFlag}, ${selectShop}, '${selectShopName}', '${linkQQ}', ${activeDay}, '${giftPhoto}', '${taskPhoto}', '${taskName}', '${taskUrl}', ${giftNum}, ${orderPrice}, ${returnPrice}, '${remark}', '${updateTime}', '${createTime}')`;
+	const sql = `
+					insert into task (orderType, limitDay, storeId, storeName, qq, days, givePicUrl, paiPicUrl, title, paiLinkUrl, paiNum, paiPrice, returnPrice, remark, updateTime, createTime)
+				` 
+				+
+				`   
+					values (${orderType}, ${limitDay}, ${storeId}, '${storeName}', '${qq}', ${days}, '${givePicUrl}', '${paiPicUrl}', '${title}', '${paiLinkUrl}', ${paiNum}, ${paiPrice}, ${returnPrice}, '${remark}', '${updateTime}', '${createTime}')
+				`;
     
 	return exec(sql).then(rows => { 
 		return rows || {};
@@ -29,30 +34,30 @@ const createTask = async (taskInfo) => {
 const editTask = async (taskInfo) => {
 	const { 
 		id,
-        orderType, shopTimeFlag, selectShop, linkQQ,
-        activeDay, giftNum, taskName, giftPhoto, taskPhoto,
-        taskUrl, orderPrice, returnPrice, remark } = taskInfo;
+        orderType, limitDay, storeId, qq,
+        days, paiNum, title, givePicUrl, paiPicUrl,
+        paiLinkUrl, paiPrice, returnPrice, remark } = taskInfo;
 
-	const shopRes = await queryShop(selectShop);
+	const shopRes = await queryShop(storeId);
 	if (!shopRes.length) {
 		throw new Error('商铺id错误');
 	} else {
-		const selectShopName = shopRes[0].shopName;
+		const storeName = shopRes[0].shopName;
 		const createTime = new Date().toLocaleString();
 		const updateTime = createTime;
 
 		const sql = `update task set 
 						orderType = ${orderType},
-						shopTimeFlag = ${shopTimeFlag},
-						selectShopName = '${selectShopName}',
-						linkQQ = '${linkQQ}',
-						activeDay = ${activeDay},
-						giftPhoto = '${giftPhoto}',
-						taskPhoto = '${taskPhoto}',
-						taskName = '${taskName}',
-						taskUrl = '${taskUrl}',
-						giftNum = ${giftNum},
-						orderPrice = ${orderPrice},
+						limitDay = ${limitDay},
+						storeName = '${storeName}',
+						qq = '${qq}',
+						days = ${days},
+						givePicUrl = '${givePicUrl}',
+						paiPicUrl = '${paiPicUrl}',
+						title = '${title}',
+						paiLinkUrl = '${paiLinkUrl}',
+						paiNum = ${paiNum},
+						paiPrice = ${paiPrice},
 						returnPrice = ${returnPrice},
 						remark = '${remark}',
 						updateTime = '${updateTime}',
@@ -70,9 +75,11 @@ const editTask = async (taskInfo) => {
 };
 
 // 查询任务
-const queryTask = () => {
-	const sql = "select * from `task`";
-	return exec(sql).then(rows => {
+const queryTask = ({ page, pageSize }) => {
+	const sql = `select * from task limit ${((+page) - 1) * (+pageSize)}, ${+pageSize}`;
+	// 执行两次
+	const sqlRows = "select found_rows()";
+	return execMany(`${sql}; ${sqlRows}`).then(rows => {
 		return rows || {};
 	})
 		.catch(res => {

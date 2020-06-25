@@ -11,9 +11,7 @@ const { SuccessModel, ErrorModel } = require('../../model/resModel');
 
 /* 创建商铺 */
 router.post('/create', async function(req, res) {
-	let params = req.body;
-	// 任务状态是未付款
-	params.status = 0;
+
 	const sqlRes = await createTask(req.body);
 	if (sqlRes.affectedRows == 1) {
 		// 插入成功
@@ -49,7 +47,17 @@ router.post('/update', async function(req, res) {
 
 /* 查询商铺 */
 router.get('/list', function(req, res) {
-	queryTask().then(data => {
+	// 校验参数
+	const { page, pageSize } = req.query;
+	const params = {
+		page: page || 1,
+		pageSize: pageSize || 10
+	};
+
+	queryTask(params).then(data => {
+		console.log(data);
+		data.page = params.page;
+		data.pageSize = params.pageSize;
 		res.json(
 			new SuccessModel(data)
 		);
