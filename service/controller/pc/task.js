@@ -34,22 +34,16 @@ const createTask = async (taskInfo) => {
 const editTask = async (taskInfo) => {
 	const { 
 		id,
-        orderType, limitDay, storeId, qq,
+        orderType, limitDay, qq,
         days, paiNum, title, givePicUrl, paiPicUrl,
         paiLinkUrl, paiPrice, returnPrice, remark } = taskInfo;
 
-	const shopRes = await queryShop(storeId);
-	if (!shopRes.length) {
-		throw new Error('商铺id错误');
-	} else {
-		const storeName = shopRes[0].shopName;
 		const createTime = new Date().toLocaleString();
 		const updateTime = createTime;
 
 		const sql = `update task set 
 						orderType = ${orderType},
 						limitDay = ${limitDay},
-						storeName = '${storeName}',
 						qq = '${qq}',
 						days = ${days},
 						givePicUrl = '${givePicUrl}',
@@ -71,7 +65,6 @@ const editTask = async (taskInfo) => {
 			console.log(res);
 			return res;
 		});
-	}
 };
 
 // 查询任务
