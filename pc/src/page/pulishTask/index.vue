@@ -17,12 +17,12 @@
                     v-model="ruleForm.orderType" 
                     :label="index">{{ item }}</el-radio>
             </el-form-item>
-            <el-form-item label="限拍同一店铺" prop="shopTimeFlag">
-                <el-radio v-model="ruleForm.shopTimeFlag" :label="0">15天限拍同一店铺</el-radio>
-                <el-radio v-model="ruleForm.shopTimeFlag" :label="1">15天限拍我的店铺</el-radio>
+            <el-form-item label="限拍同一店铺" prop="limitDay">
+                <el-radio v-model="ruleForm.limitDay" :label="0">15天限拍同一店铺</el-radio>
+                <el-radio v-model="ruleForm.limitDay" :label="1">15天限拍我的店铺</el-radio>
             </el-form-item>
-            <el-form-item label="选择店铺" prop="selectShop">
-                <el-select v-model="ruleForm.selectShop" placeholder="请选择活动区域">
+            <el-form-item label="选择店铺" prop="storeId">
+                <el-select v-model="ruleForm.storeId" placeholder="请选择活动区域">
                     <el-option 
                         v-for="item in shopList" 
                         :key="item.id" 
@@ -30,35 +30,35 @@
                         :value="item.id"></el-option> 
                 </el-select>
             </el-form-item>
-            <el-form-item label="联系QQ" prop="linkQQ">
-                <el-input v-model="ruleForm.linkQQ" placeholder="请输入联系QQ"></el-input>
+            <el-form-item label="联系QQ" prop="qq">
+                <el-input v-model="ruleForm.qq" placeholder="请输入联系QQ"></el-input>
             </el-form-item>
-            <el-form-item label="活动天数" prop="activeDay">
-                <el-input v-model="ruleForm.activeDay" placeholder="请输入活动天数"></el-input>
+            <el-form-item label="活动天数" prop="days">
+                <el-input v-model="ruleForm.days" placeholder="请输入活动天数"></el-input>
             </el-form-item>
             <el-form-item>
                 <div class="fz-20 fb-600 black-color mar-left-100">商品信息</div>
             </el-form-item>
-            <el-form-item label="试用品名称" prop="taskName">
-                <el-input v-model="ruleForm.taskName" placeholder="请输入试用品名称"></el-input>
+            <el-form-item label="试用品名称" prop="title">
+                <el-input v-model="ruleForm.title" placeholder="请输入试用品名称"></el-input>
             </el-form-item>
-            <el-form-item label="试用品图片" prop="giftPhoto">
-                <el-input v-model="ruleForm.giftPhoto" placeholder="请输入试用品图片"></el-input>
+            <el-form-item label="试用品图片" prop="givePicUrl">
+                <el-input v-model="ruleForm.givePicUrl" placeholder="请输入试用品图片"></el-input>
             </el-form-item>
-            <el-form-item label="商品链接" prop="taskUrl">
-                <el-input v-model="ruleForm.taskUrl" placeholder="请输入商品链接"></el-input>
+            <el-form-item label="商品链接" prop="paiLinkUrl">
+                <el-input v-model="ruleForm.paiLinkUrl" placeholder="请输入商品链接"></el-input>
             </el-form-item>
-            <el-form-item label="商品图片" prop="taskPhoto">
-                <el-input v-model="ruleForm.taskPhoto" placeholder="请输入商品链接"></el-input>
+            <el-form-item label="商品图片" prop="givePicUrl">
+                <el-input v-model="ruleForm.givePicUrl" placeholder="请输入商品链接"></el-input>
             </el-form-item>
             <el-form-item>
                 <div class="fz-20 fb-600 black-color mar-left-100">价格与费用</div>
             </el-form-item>
-            <el-form-item label="试用份数" prop="giftNum">
-                <el-input v-model="ruleForm.giftNum" placeholder="请输入试用份数"></el-input>
+            <el-form-item label="试用份数" prop="paiNum">
+                <el-input v-model="ruleForm.paiNum" placeholder="请输入试用份数"></el-input>
             </el-form-item>
-            <el-form-item label="下单价格" prop="orderPrice">
-                <el-input v-model="ruleForm.orderPrice" placeholder="请输入下单价格"></el-input>
+            <el-form-item label="下单价格" prop="paiPrice">
+                <el-input v-model="ruleForm.paiPrice" placeholder="请输入下单价格"></el-input>
             </el-form-item>
             <el-form-item label="返金" prop="returnPrice">
                 <div class="fz-16 black-color">全额返金</div>
@@ -102,17 +102,30 @@
                 shopList: [],
                 editorOption: {},
                 ruleForm: {
+                    // days: "15",
+                    // givePicUrl: "https://www.taobao.com/",
+                    // limitDay: 0,
+                    // orderType: 0,
+                    // paiLinkUrl: "https://www.taobao.com/",
+                    // paiNum: "5",
+                    // givePicUrl: "https://www.taobao.com/",
+                    // paiPrice: "100",
+                    // qq: "392064881",
+                    // remark: "下单前核对店铺和商品主图，必须完成加购收藏等注意事项的操作！货到以后，必须本人确认收货，必须在旺旺上给商家留言说：本人已签收快递，很满意！",
+                    // returnPrice: "100",
+                    // storeId: 2,
+                    // title: "测试使用",
                     orderType: 0, // 下单方式
-                    shopTimeFlag: 0, // 限制同一店铺拍卖
-                    selectShop: null, // 选择店铺
-                    linkQQ: '', // 联系QQ
-                    activeDay: null, // 活动天数
-                    taskName: '', // 试用品名称
-                    giftPhoto: '', // 试用品图片
-                    taskUrl: '', // 商品链接
-                    taskPhoto: '', // 商品图片
-                    giftNum: null, // 试用份数
-                    orderPrice: null, // 下单价
+                    limitDay: 0, // 限制同一店铺拍卖
+                    storeId: null, // 选择店铺
+                    qq: '', // 联系QQ
+                    days: null, // 活动天数
+                    title: '', // 试用品名称
+                    givePicUrl: '', // 试用品图片
+                    paiLinkUrl: '', // 商品链接
+                    givePicUrl: '', // 商品图片
+                    paiNum: null, // 试用份数
+                    paiPrice: null, // 下单价
                     returnPrice: null, // 返金
                     remark: '下单前核对店铺和商品主图，必须完成加购收藏等注意事项的操作！货到以后，必须本人确认收货，必须在旺旺上给商家留言说：本人已签收快递，很满意！' // 备注
                 },
@@ -120,31 +133,31 @@
                     orderType: [
                         { required: true, message: '请选择下单方式', trigger: 'change' }
                     ],
-                    shopTimeFlag: [
+                    limitDay: [
                         { required: true, message: '请选择是否限制同一店铺拍卖', trigger: 'change' }
                     ],
-                    selectShop: [
+                    storeId: [
                         { required: true, message: '请选择店铺', trigger: 'change' }
                     ],
-                    linkQQ: [
+                    qq: [
                         { required: true, message: '请输入联系QQ', trigger: 'blur' }
                     ],
-                    activeDay: [
+                    days: [
                         { required: true, message: '请输入活动天数', trigger: 'blur' }
                     ],
-                    taskName: [
+                    title: [
                         { required: true, message: '请输入试用品名称', trigger: 'blur' }
                     ],
-                    giftPhoto: [
+                    givePicUrl: [
                         { required: true, message: '请输入试用品图片', trigger: 'blur' }
                     ],
-                    taskUrl: [
+                    paiLinkUrl: [
                         { required: true, message: '请输入商品链接', trigger: 'blur' }
                     ],
-                    taskPhoto: [
+                    givePicUrl: [
                         { required: true, message: '请输入商品图片', trigger: 'blur' }
                     ],
-                    giftNum: [
+                    paiNum: [
                         { required: true, message: '请输入试用份数', trigger: 'blur' }
                     ],
                     // remark: [
@@ -173,7 +186,7 @@
                 this.$refs[formName].validate(async (valid) => {
                 if (valid) {
                     // 返金的处理
-                    this.ruleForm.returnPrice = this.ruleForm.orderPrice;
+                    this.ruleForm.returnPrice = this.ruleForm.paiPrice;
                     const res = await api.task.createTask(this.ruleForm);
                     this.resetForm(formName);
                     // 跳转到任务列表
@@ -186,19 +199,19 @@
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
-                this.orderType = 0; // 下单方式
-                this.shopTimeFlag = 0; // 限制同一店铺拍卖
-                this.selectShop = null; // 选择店铺
-                this.linkQQ = ''; // 联系QQ
-                this.activeDay = null; // 活动天数
-                this.taskName = ''; // 试用品名称
-                this.giftPhoto = ''; // 试用品图片
-                this.taskUrl = ''; // 商品链接
-                this.taskPhoto = ''; // 商品图片
-                this.giftNum = null; // 试用份数
-                this.orderPrice = null; // 下单价
-                this.returnPrice = null; // 返金
-                this.remark = '下单前核对店铺和商品主图，必须完成加购收藏等注意事项的操作！货到以后，必须本人确认收货，必须在旺旺上给商家留言说：本人已签收快递，很满意！'; // 备注
+                this.ruleForm.orderType = 0; // 下单方式
+                this.ruleForm.limitDay = 0; // 限制同一店铺拍卖
+                this.ruleForm.storeId = null; // 选择店铺
+                this.ruleForm.qq = ''; // 联系QQ
+                this.ruleForm.days = null; // 活动天数
+                this.ruleForm.title = ''; // 试用品名称
+                this.ruleForm.givePicUrl = ''; // 试用品图片
+                this.ruleForm.paiLinkUrl = ''; // 商品链接
+                this.ruleForm.givePicUrl = ''; // 商品图片
+                this.ruleForm.paiNum = null; // 试用份数
+                this.ruleForm.paiPrice = null; // 下单价
+                this.ruleForm.returnPrice = null; // 返金
+                this.ruleForm.remark = '下单前核对店铺和商品主图，必须完成加购收藏等注意事项的操作！货到以后，必须本人确认收货，必须在旺旺上给商家留言说：本人已签收快递，很满意！'; // 备注
             }
         }
     }

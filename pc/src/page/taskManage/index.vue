@@ -14,43 +14,43 @@
                     label="下单方式">
                 </el-table-column>
                 <el-table-column
-                    prop="shopTimeFlag"
+                    prop="limitDay"
                     label="同一店铺限拍时限">
                 </el-table-column>
                 <el-table-column
-                    prop="selectShopName"
+                    prop="storeName"
                     label="店铺名称">
                 </el-table-column>
                 <el-table-column
-                    prop="linkQQ"
+                    prop="qq"
                     label="联系QQ">
                 </el-table-column>
                 <el-table-column
-                    prop="activeDay"
+                    prop="days"
                     label="活动时间">
                 </el-table-column>
                 <el-table-column
-                    prop="giftPhoto"
+                    prop="givePicUrl"
                     label="礼物图片">
                 </el-table-column>
                 <el-table-column
-                    prop="taskPhoto"
+                    prop="paiPicUrl"
                     label="任务图片">
                 </el-table-column>
                 <el-table-column
-                    prop="taskName"
+                    prop="title"
                     label="任务名称">
                 </el-table-column>
                 <el-table-column
-                    prop="taskUrl"
+                    prop="paiLinkUrl"
                     label="任务的链接">
                 </el-table-column>
                 <el-table-column
-                    prop="giftNum"
+                    prop="paiNum"
                     label="试用份数">
                 </el-table-column>
                 <el-table-column
-                    prop="orderPrice"
+                    prop="paiPrice"
                     label="下单价">
                 </el-table-column>
                 <el-table-column

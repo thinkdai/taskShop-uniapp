@@ -1,6 +1,6 @@
 <template>
     <div class="bottom_wrapper">
-        版权所有 © 孵化园工作室 2019 保留一切权利。
+        版权所有 © 孵化园工作室 2020 保留一切权利。
     </div>
 </template>
 <script>
