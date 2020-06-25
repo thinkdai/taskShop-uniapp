@@ -22,7 +22,7 @@
                     prop="shopUrl"
                     label="商铺链接">
                     <template slot-scope="scope">
-                        <a :href="scope.row.shopUrl">{{ scope.row.shopUrl }}</a>
+                        <a :href="scope.row.shopUrl" target="_blank">{{ scope.row.shopUrl }}</a>
                     </template>
                 </el-table-column>
                 <el-table-column
