@@ -1,6 +1,7 @@
 import axios from 'axios';
 import router from "../router/router";
 import store from "../store";
+import { MessageBox, Message } from "element-ui";
 
 // 创建axios实例
 var instance = axios.create({timeout: 1000 * 12});
@@ -59,20 +60,32 @@ instance.interceptors.response.use(
                 store.commit('SET_NAME', '');
                 store.commit('SET_LOGIN_FLAG', false);
                 sessionStorage.setItem('isLogin', false);
-                router.replace({
-                    path: '/login',
-                    query: {
-                        redirect: encodeURI(router.currentRoute.fullPath)
-                    }
+                MessageBox.confirm("登录已失效，请重新登录", "温馨提示", {
+                    confirmButtonText: "重新登录",
+                    cancelButtonText: "取消",
+                    type: "warning"
+                }).then(() => {
+                    router.replace({
+                        path: '/login',
+                        query: {
+                            redirect: encodeURI(router.currentRoute.fullPath)
+                        }
+                    });
                 });
-            break;
+                return;
             case 200:
                 // 登录成功
-                
-            break;
+                return response;
             case 400:
                 // 请求异常
-            break;
+                MessageBox.confirm("接口请求异常,请查看参数是否正确", "温馨提示", {
+                    confirmButtonText: "确认",
+                    cancelButtonText: "取消",
+                    type: "error"
+                }).then(() => {
+                    
+                });
+                return;
             default: 
             break;
         }
@@ -84,5 +97,6 @@ instance.interceptors.response.use(
       return Promise.reject(error.response.status); // 返回接口返回的错误信息
     }
 );
+
 
 export default $Http;
