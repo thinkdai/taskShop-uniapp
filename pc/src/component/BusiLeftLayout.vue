@@ -3,8 +3,9 @@
         <el-row class="container">
             <el-col>
                 <el-menu
-                    :default-active="0"
-                    class="el-menu-vertical-demo">
+                    :default-active="active"
+                    class="el-menu-vertical-demo"
+                    @select="handlerMenuSelect">
                     <template v-for="(item, index) in routeArr">  
                         <!-- 只有一级路由 -->
                         <el-menu-item :index="index" :key="index">
@@ -21,28 +22,38 @@
 </template>
 
 <script>
-    // import  
+    import { storage } from '@until/storage';
+
     export default {
         data() {
             return {
-                routeArr: [] // 数组对象
+                routeArr: [], // 数组对象
+                active: 0 // 当前菜单
             };
         },
         created() {
             this.formatRouter();
+            this.getCurrentMenu();
         },
         methods: {
+            getCurrentMenu() {
+                this.active = storage.get('menu') ? JSON.parse(storage.get('menu')) : 0;
+            },
             // 格式化路由
             formatRouter() {
                 this.routeArr = this.$router.options.routes.filter(_ => {
                     return _.meta && _.meta.requireLogin;
                 });
-                // console.log(this.routeArr);
             },
             // 跳转路由
             jumpUrl({ path }) {
                 // 避免跳转到当前路由
                 this.$router.push({ path });
+            },
+            // 菜单激活的回调
+            handlerMenuSelect(val) {
+                console.log(val);
+                storage.set('menu', JSON.stringify(val));
             }
         }
     }

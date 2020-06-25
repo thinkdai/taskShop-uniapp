@@ -20,7 +20,6 @@
         },
         created() {
             this.userName = JSON.parse(storage.get('userInfo')).username;
-            console.log(this.userName);
         }
     };
 </script>
