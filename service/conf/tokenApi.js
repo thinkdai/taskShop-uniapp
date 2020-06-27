@@ -5,6 +5,7 @@ module.exports = {
 		'/apiPc/user/create',
 		'/apiPc/user/delete',
 		'/apiPc/user/query',
+		'apiPc/user/userInfo',
 		// 商铺
 		'/apiPc/shop/create',
 		'/apiPc/shop/list',
