@@ -5,6 +5,7 @@ const { login, createUser, queryUser } = require('../../controller/pc/users');
 const { SuccessModel, ErrorModel } = require('../../model/resModel');
 // token操作
 const token = require('../../utils/token');
+const until = require('../../utils/cookie');
 
 /* 创建用户 */
 router.post('/create', async function(req, res) {
@@ -68,6 +69,25 @@ router.get('/list', function(req, res) {
 			new SuccessModel(data)
 		);
 	});
+});
+
+/* 获取当前用户信息 */
+router.get('/userInfo', function (req, res) {
+	console.log(req);
+	try {
+		// 拿取token 数据 按照自己传递方式写
+		const cookie = req.headers['cookie'];
+		const tokenStr = until.cookieToJson(cookie);
+		// 检查token是否有效（过期和非法）
+		const user = token.checkToken(tokenStr);
+		res.json(
+			new SuccessModel({username: user})
+		);
+	} catch(e) {
+		res.json(
+			new ErrorModel(e)
+		);
+	}
 });
 
 module.exports = router;
