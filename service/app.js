@@ -1,18 +1,19 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var handleLog  = require('./middleWare/logger');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const handleLog  = require('./middleWare/logger');
+const logger = require('./middleWare/logger/logger');
 
 //引入token的操作,token的白名单
 const tokenUtil = require("./utils/token");
 const config = require('./conf/tokenApi');
 const until = require('./utils/cookie');
 
-var pcRouter = require('./routes/pc/index');
-var appRouter = require('./routes/app/index');
+const pcRouter = require('./routes/pc/index');
+const appRouter = require('./routes/app/index');
 
-var app = express();
+const app = express();
 
 // 跨域配置 本地调试使用
 app.use(function(req, res, next) {
@@ -70,7 +71,7 @@ app.use(function(req, res, next) {
 	next(createError(404));
 });
 
-// error handler
+// error handler错误中间件
 app.use(function(err, req, res) {
 	// set locals, only providing error in development
 	res.locals.message = err.message;
@@ -78,7 +79,9 @@ app.use(function(err, req, res) {
 
 	// render the error page
 	res.status(err.status || 500);
-	res.render('error');
+  res.render('error');
+  // 错误统一处理
+  logger.error(err.message);
 });
 
 module.exports = app;
