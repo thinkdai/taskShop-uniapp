@@ -2,7 +2,7 @@
     <div class="log-manage_wrapper">
         <BusiAppHeader />
         <div class="content">
-            <div>{{ urlLog }}</div>
+            <div v-html="urlLog"></div>
         </div>
     </div>
 </template>
@@ -26,7 +26,7 @@
         methods: {
             async loadData() {
                 const res = await api.log.logAPI();
-                this.urlLog = res;
+                this.urlLog = res.replace(/^\[.*/i, '&nbsp');
             }
         }
     };
