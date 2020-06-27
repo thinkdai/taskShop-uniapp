@@ -15,11 +15,15 @@
     export default {
         data() {
             return {
-                userName: ''
             };
         },
+        computed: {
+            userName() {
+                return this.$store.getters.username;
+            }
+        },
         created() {
-            this.userName = JSON.parse(storage.get('userInfo')).username;
+            // this.userName = JSON.parse(storage.get('userInfo')).username;
         }
     };
 </script>

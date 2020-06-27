@@ -2,7 +2,7 @@
     <section class="app-outside__wrapper">
         <!-- 头部 -->
         <BusiHeaderLayout v-if="$route.meta.requireLogin" />
-        <section class="app-wrapper flex_layout">
+        <section id="app-wrapper" class="app-wrapper flex_layout">
             <!-- 登录页面不需要侧边栏以及底部 -->
             <BusiLeftLayout v-if="$route.meta.requireLogin" />
             <!-- 占位盒子 -->
@@ -20,11 +20,13 @@
         <BusiBottom v-if="$route.meta.requireLogin" />
     </section>
 </template>
+
 <script>
     import BusiBottom from './component/BusiBottom.vue';
     import BusiLeftLayout from './component/BusiLeftLayout.vue';
     import BusiHeaderLayout from './component/BusiHeaderLayout.vue';
     import BusiBlankBox from './component/BusiBlankBox.vue';
+    import watermark from　'@/until/watermark';
 
     export default {
         components: {
@@ -36,9 +38,23 @@
         data() {
             return {
             };
+        },
+        mounted() {
+            this.handlerWaterMark();
+        },
+        methods: {
+            // 水印处理
+            handlerWaterMark() {
+                if (this.$store.getters.hasLogin) {
+                    this.$store.dispatch('getInfo').then(() => {
+                        watermark.set(this.$store.getters.username);
+                    });
+                }
+            }
         }
     };
 </script>
+
 <style lang="scss">
     //引入公共文件
     @import "./style/common.scss";

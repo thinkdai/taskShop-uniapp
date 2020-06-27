@@ -59,7 +59,6 @@ instance.interceptors.response.use(
                 // 登录状态为没有登录
                 store.commit('SET_NAME', '');
                 store.commit('SET_LOGIN_FLAG', false);
-                sessionStorage.setItem('isLogin', false);
                 MessageBox.confirm("登录已失效，请重新登录", "温馨提示", {
                     confirmButtonText: "重新登录",
                     cancelButtonText: "取消",
