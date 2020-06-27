@@ -54,6 +54,8 @@ app.use(function(req, res, next) {
 });
 
 // 中间件
+// 日志处理落地 参考:https://www.cnblogs.com/chyingp/p/node-learning-guide-express-morgan.html
+app.use(handleLog);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -78,8 +80,5 @@ app.use(function(err, req, res) {
 	res.status(err.status || 500);
 	res.render('error');
 });
-
-// 日志处理落地 参考:https://www.cnblogs.com/chyingp/p/node-learning-guide-express-morgan.html
-app.use(handleLog);
 
 module.exports = app;

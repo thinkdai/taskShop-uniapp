@@ -73,7 +73,6 @@ router.get('/list', function(req, res) {
 
 /* 获取当前用户信息 */
 router.get('/userInfo', function (req, res) {
-	console.log(req);
 	try {
 		// 拿取token 数据 按照自己传递方式写
 		const cookie = req.headers['cookie'];

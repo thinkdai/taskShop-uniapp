@@ -55,7 +55,6 @@ router.get('/list', function(req, res) {
 	};
 
 	queryTask(params).then(data => {
-		console.log(data);
 		data.page = params.page;
 		data.pageSize = params.pageSize;
 		res.json(

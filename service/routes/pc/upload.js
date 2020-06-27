@@ -59,10 +59,10 @@ router.post('/img', imageUploaderSingle, function(req, res) {
     
     //得到图片尺寸
     let dimensions = sizeOf(file.path);
-    console.log('文件类型：%s', file.mimetype);
-    console.log('原始文件名：%s', file.originalname);
-    console.log('文件大小：%s', file.size);
-    console.log('文件保存路径：%s', file.path);
+    // console.log('文件类型：%s', file.mimetype);
+    // console.log('原始文件名：%s', file.originalname);
+    // console.log('文件大小：%s', file.size);
+    // console.log('文件保存路径：%s', file.path);
 
     res.json({
         code: 200,
