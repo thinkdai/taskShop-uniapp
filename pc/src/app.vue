@@ -41,6 +41,10 @@
         },
         mounted() {
             this.handlerWaterMark();
+            //window
+            window.onbeforeunload= function(e) {     
+                storage.set('menu', JSON.stringify(0));
+            }
         },
         methods: {
             // 水印处理

@@ -52,7 +52,6 @@
             },
             // 菜单激活的回调
             handlerMenuSelect(val) {
-                console.log(val);
                 storage.set('menu', JSON.stringify(val));
             }
         }
