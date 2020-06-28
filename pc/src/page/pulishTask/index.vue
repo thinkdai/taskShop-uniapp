@@ -43,13 +43,15 @@
                 <el-input v-model="ruleForm.title" placeholder="请输入试用品名称"></el-input>
             </el-form-item>
             <el-form-item label="试用品图片" prop="givePicUrl">
-                <el-input v-model="ruleForm.givePicUrl" placeholder="请输入试用品图片"></el-input>
+                <!-- <el-input v-model="ruleForm.givePicUrl" placeholder="请输入试用品图片"></el-input> -->
+                <BusiImgUpload :imgUrl.sync="ruleForm.givePicUrl" placeholder="请输入试用品图片" />
             </el-form-item>
             <el-form-item label="商品链接" prop="paiLinkUrl">
                 <el-input v-model="ruleForm.paiLinkUrl" placeholder="请输入商品链接"></el-input>
             </el-form-item>
-            <el-form-item label="商品图片" prop="givePicUrl">
-                <el-input v-model="ruleForm.givePicUrl" placeholder="请输入商品链接"></el-input>
+            <el-form-item label="商品图片" prop="paiPicUrl">
+                <!-- <el-input v-model="ruleForm.givePicUrl" placeholder="请输入商品链接"></el-input> -->
+                <BusiImgUpload :imgUrl.sync="ruleForm.paiPicUrl" placeholder="请输入试用品图片" />
             </el-form-item>
             <el-form-item>
                 <div class="fz-20 fb-600 black-color mar-left-100">价格与费用</div>
@@ -85,6 +87,7 @@
 
 <script>
     import BusiAppHeader from '@component/BusiAppHeader.vue';
+    import BusiImgUpload from '@component/BusiImgUpload.vue';
     import api from "@API/index";
     import { quillEditor } from "vue-quill-editor"; //调用编辑器
     import 'quill/dist/quill.core.css';
@@ -94,7 +97,8 @@
     export default {
         components: {
             BusiAppHeader,
-            quillEditor 
+            quillEditor,
+            BusiImgUpload
         },
         data() {
             return {
@@ -123,7 +127,8 @@
                     title: '', // 试用品名称
                     givePicUrl: '', // 试用品图片
                     paiLinkUrl: '', // 商品链接
-                    givePicUrl: '', // 商品图片
+                    givePicUrl: '', // 试用商品图片
+                    paiPicUrl: '', // 拍卖商品图片
                     paiNum: null, // 试用份数
                     paiPrice: null, // 下单价
                     returnPrice: null, // 返金
