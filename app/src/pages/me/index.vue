@@ -13,7 +13,15 @@
         </view>
         <!-- 我的任务分类 -->
         <view class="my-task-list">
-
+            <view class="grid">
+                <view class="fz-16 num">122</view>
+                <view class="fz-12 txt">全部订单</view>
+            </view>
+            <view class="grid"></view>
+            <view class="grid"></view>
+            <view class="grid"></view>
+            <view class="grid"></view>
+            <view class="grid"></view>
         </view>
     </view>
 </template>
@@ -74,9 +82,34 @@
     }
     .my-task-list {
         margin: 30rpx 0;
-        height: 142rpx;
+        height: 288rpx;
         line-height: 88rpx;
         background-color: #fff;
+        display: flex;
+        flex-wrap: wrap;
+        .grid {
+            text-align: center;
+            box-sizing: border-box;
+            float: left;
+            width: 25%;
+            position: relative;
+            position: relative;
+            flex: 1;
+            height: 144rpx;
+            text-align: center;
+            padding: 17px 0 10px;
+            .num {
+                font-weight: 700;
+                color: #333;
+                height: 32rpx;
+                line-height: 32rpx;
+            }
+            .txt {
+                color: #666;
+                line-height: 68rpx;
+                display: block;
+            }
+        }
     }
 }
 </style>
