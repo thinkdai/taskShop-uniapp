@@ -9,6 +9,7 @@
     "lintfix": "eslint --fix --ext .js ../service"
   },
   "dependencies": {
+    "@alicloud/pop-core": "^1.7.9",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",

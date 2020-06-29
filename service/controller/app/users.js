@@ -1,77 +1,63 @@
-// const { exec, escape } = require('../db/mysql.js')
+const { exec } = require('../../db/mysql');
 
-// //登录
-// const login = (loginInfo) => {
-//     let { username, password } = loginInfo;
-//     const sql = `
-//     select username from users where username = '${username}' and password = '${password}';
-//     `
+//登录
+const login = (loginInfo) => {
+	let { username, password } = loginInfo;
+	const sql = "select username from `pc-user` where username = "+ `'${username}'` + " and password = " + `'${password}'`;
+	console.log(sql);
+	return exec(sql).then(rows => {
+		console.log(rows);
+		return rows[0] || {};
+	});
+};
 
-//     return exec(sql).then(rows => {
-//         return rows[0] || {}
-//     })
-// }
+// 查询用户
+const queryUser = () => {
+	const sql = "select * from `pc-user`";
+	return exec(sql).then(rows => {
+		return rows || {};
+	})
+		.catch(res => {
+			return res;
+		});
+};
 
-// // 查询用户
-// const queryUser = () => {
-//     const sql = `select * from user`
-//     return exec(sql).then(rows => {
-//         return rows || {};
-//     })
-//     .catch(res => {
-//         return res;
-//     })
-// }
+//创建用户
+const createUser = (userInfo) => {
+	const { nickname, username, password } = userInfo;
+	const createtime = new Date().toLocaleString();
+	let updatetime = createtime;
 
-// // 查询openId
-// const queryOpenIdUser = (openId) => {
-//     const sql = `SELECT * FROM user WHERE 'openId' = ${13333} LIMIT 0,1000`
-//     return exec(sql).then(rows => {
-//         return rows || {};
-//     })
-//     .catch(res => {
-//         return res;
-//     })
-// }
+	const sql = "insert into `pc-user` (nickname,username,`password`,status, createtime, updatetime)" +
+                `values ('${nickname}', '${username}', '${password}', 0, '${createtime}', '${updatetime}')`;
 
-// //创建用户
-// const createUser = (userInfo) => {
-//     const { nickName, gender, openId, language, city, 
-//             province, country, avatarUrl, unionId } = userInfo;
-//     const createtime = new Date().getTime(), 
-//           updatetime = new Date().getTime();
+	return exec(sql).then(rows => { 
+		return rows || {};
+	})
+		.catch(res => {
+			console.log(res);
+			return res;
+		});
+};
 
-//     const sql = "insert into user(nickName, gender, openId, language, city, province, country, avatarUrl, unionId, createtime, updatetime )" +
-//                 `values ('${nickName}', '${gender}', '${openId}', '${language}', '${city}', '${province}', '${country}', '${avatarUrl}', '${unionId}', '${createtime}', '${updatetime}')`
+// 删除用户
+const deleteUser = (userInfo) => {
+	const { nickname, username } = userInfo;
 
-//     return exec(sql).then(rows => { 
-//             return rows || {};
-//         })
-//         .catch(res => {
-//             console.log(res)
-//             return res;
-//         })
-// }
+	const sql = "DELETE FROM `pc-user` WHERE nickname = "+ `'${nickname}'` + " and username = " + `'${username}'` + "and state = 0";
 
-// // 删除用户
-// const deleteUser = (userInfo) => {
-//     let { nickname, username } = userInfo;
+	return exec(sql).then(rows => { 
+		return rows || {};
+	})
+		.catch(res => {
+			console.log(res);
+			return res;
+		});
+};
 
-//     const sql = `DELETE FROM users WHERE nickname = '${nickname}' and username = '${username}' and state = 0`
-
-//     return exec(sql).then(rows => { 
-//             return rows || {};
-//         })
-//         .catch(res => {
-//             console.log(res)
-//             return res;
-//         })
-// }
-
-// module.exports = {
-//     login,
-//     createUser,
-//     queryUser,
-//     deleteUser,
-//     queryOpenIdUser
-// }
+module.exports = {
+	login,
+	createUser,
+	queryUser,
+	deleteUser
+};
