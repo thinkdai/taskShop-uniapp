@@ -25,6 +25,16 @@
                 <view v-else class="code-btn fz-14" @tap="getCode">重新获取</view>
             </view>
             <view class="error-tip fz-10">{{ codeError ? '验证码输入错误' : '' }}</view>
+            <view class="form_item flex_layout">
+                <text class="label fz-16">密码</text>
+                <input v-model="form.password" 
+                       type="number"
+                       class="item_input fz-16"
+                       placeholder-class="input_placeholder-class"
+                       placeholder="请输入密码"
+                       @blur="handlerblur" />
+            </view>
+            <view class="error-tip fz-10">{{ passwordError ? '请输入密码' : '' }}</view>
         </view>
         <view class="submit-btn fz-16" @tap="submit">确定</view>
     </view>
@@ -40,11 +50,13 @@
             return {
                 form: {
                     phone: '',
-                    code: ''
+                    code: '',
+                    password: ''
                 },
                 pageSource:'me',
                 phoneError: false, // 手机号出错
                 codeError: false, // 验证码出错
+                passwordError: false, // 密码
                 sendCoding: 1, // 发送验证码
                 time: 60 // 倒计时
             };
