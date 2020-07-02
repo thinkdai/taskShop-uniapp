@@ -4,22 +4,69 @@ var router = express.Router();
 const { login, createUser, queryUser } = require('../../controller/app/users');
 const { SuccessModel, ErrorModel } = require('../../model/resModel');
 // token操作
-const token = require('../../utils/token');
-const until = require('../../utils/cookie');
+// const token = require('../../utils/token');
+// const until = require('../../utils/cookie');
+const message = require('../../utils/message');
+// 频率限制
+const rateLimit = require('express-rate-limit');
 
 /* 创建用户 */
-router.post('/create', async function(req, res) {
-	const sqlRes = await createUser(req.body);
-	if (sqlRes.affectedRows == 1) {
-		// 插入成功
+router.post('/create', function(req, res) {
+	const { password, phone, code } = req.body;
+	// 校验验证码正确性
+	message.checkCode({ phoneNumber : phone, code: code }, async function() {
+		const sqlRes = await createUser({
+			password,
+			phone,
+			nickname: '已重置'
+		});
+		console.log(sqlRes);
+		if (sqlRes.affectedRows == 1) {
+			// 插入成功
+			res.json(
+				new SuccessModel("新增用户信息成功")
+			); 
+		} else {
+			res.json(
+				new ErrorModel("新增用户信息失败")
+			);
+		}
+	}, function (e) {
 		res.json(
-			new SuccessModel("新增用户信息成功")
-		); 
-	} else {
-		res.json(
-			new ErrorModel("新增用户信息失败")
+			new ErrorModel(e, '新增用户信息失败')
 		);
+	});
+});
+
+/*
+* 验证码请求限制调用频率同一个ip 1分钟调用最多1次
+*/
+
+var phonecodeLimiter = rateLimit({
+	windowMs: 1 * 60 * 1000, // 分钟调用1次
+	max: 1, // 1分钟调用1次
+	handler:function(req, res) {
+		res.json(new ErrorModel('请求繁忙,请稍后再试'));
 	}
+});
+
+router.get('/code', phonecodeLimiter, async function(req, res) {
+	// 发送短信
+	message.sendSms({phoneNumber: req.query.phone}, function(e) {
+		if (e.Message == 'OK') {
+			res.json(
+				new SuccessModel('验证码获取成功')
+			);
+		} else {
+			res.json(
+				new ErrorModel(e, '验证码获取错误')
+			);
+		}
+	}, function(e) {
+		res.json(
+			new ErrorModel(e, '验证码获取错误')
+		);
+	});
 });
 
 /* 登录 */

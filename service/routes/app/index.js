@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var userRouter = require('./user');
 
-/* GET home page. */
-router.get('/create-user', function(req, res, next) {
-    
-});
+// 用户路由
+router.use('/user', userRouter);
 
 module.exports = router;

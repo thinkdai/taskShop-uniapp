@@ -28,7 +28,7 @@ app.use(function(req, res, next) {
 //app.use是Express拦截器的方法
 app.use(function(req, res, next) {
   // pc的token与app的token分开
-  if (req.originalUrl.indexOf('apiPc')) {
+  if (req.originalUrl.indexOf('apiPc') != -1) {
     // 拿取token 数据 按照自己传递方式写
     const cookie = req.headers['cookie'];
     const token = until.cookieToJson(cookie);
@@ -50,7 +50,8 @@ app.use(function(req, res, next) {
       res.json({ code: 401, message: '无效的token.' });
     }
   } else {
-    console.log(111);
+    console.log('app router');
+    next();
   }
 });
 

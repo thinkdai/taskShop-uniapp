@@ -24,12 +24,12 @@ const queryUser = () => {
 
 //创建用户
 const createUser = (userInfo) => {
-	const { nickname, username, password } = userInfo;
+	const { nickname, phone, password } = userInfo;
 	const createtime = new Date().toLocaleString();
 	let updatetime = createtime;
 
-	const sql = "insert into `pc-user` (nickname,username,`password`,status, createtime, updatetime)" +
-                `values ('${nickname}', '${username}', '${password}', 0, '${createtime}', '${updatetime}')`;
+	const sql = "insert into `app-user` (nickname, phone,`password`,status, createtime, updatetime)" +
+                `values ('${nickname}', '${phone}', '${password}', 0, '${createtime}', '${updatetime}')`;
 
 	return exec(sql).then(rows => { 
 		return rows || {};
