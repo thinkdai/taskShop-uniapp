@@ -12,8 +12,8 @@ const login = (loginInfo) => {
 };
 
 // 查询用户
-const queryUser = () => {
-	const sql = "select * from `pc-user`";
+const queryPhoneUser = (phone) => {
+	const sql = "select * from `app-user` where phone =" +  `${phone}`;
 	return exec(sql).then(rows => {
 		return rows || {};
 	})
@@ -58,6 +58,6 @@ const deleteUser = (userInfo) => {
 module.exports = {
 	login,
 	createUser,
-	queryUser,
+	queryPhoneUser,
 	deleteUser
 };

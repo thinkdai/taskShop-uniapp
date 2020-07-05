@@ -33,7 +33,7 @@ var getFormatedDate = function() {
   return formatedDate;
 };
 
-var diffRange = 1000 * 60 * 1; // 1分钟过期
+var diffRange = 1000 * 60 * 5; // 5分钟过期
 
 var pattern = /\d{6}/;
 
@@ -84,7 +84,7 @@ module.exports = {
 
         if (result.Code === 'OK') {
             var detail = result.SmsSendDetailDTOs.SmsSendDetailDTO[0] || {};
-            // console.log(detail.Content);
+            // console.log(result.SmsSendDetailDTOs);
             // console.log(new Date(), data.code);
             // console.log(new Date(detail.ReceiveDate));
             // console.log(new Date() - new Date(detail.ReceiveDate));

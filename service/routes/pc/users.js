@@ -49,7 +49,9 @@ router.post('/login', function(req, res) {
 		if(username) {
 			// 设置token
 			//设置token
-			token.setToken({user: username, res});
+			token.setToken({tokenPayload: {
+				user: username
+			}, res});
 			res.json(
 				new SuccessModel(data)
 			);
