@@ -3,22 +3,20 @@ const path = require('path');
 module.exports = {
     configureWebpack: {
         devServer: {
-            port: port,
             open: false,
             overlay: {
                 warnings: false,
                 errors: true
             },
-           
             proxy: {
                 // change xxx-api/login => mock/login
                 // detail: https://cli.vuejs.org/config/#devserver-proxy
-                '/api': {
-                    target: 'localhost:3000/apiApp',
+                '/apiApp': {
+                    target: 'http://localhost:3000/apiApp',
                     changeOrigin: true,
                     secure: true,
                     pathRewrite: {
-                        ['^/api']: '/api'
+                        ['^/apiApp']: ''
                     }
                 },
                 '/upload': {

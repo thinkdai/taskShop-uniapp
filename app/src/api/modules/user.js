@@ -3,7 +3,7 @@ import http from '@util/lib/http';
 // 获取用户信息
 const getUserInfo = (code) => http.get('user/info', {code});
 // 获取验证码
-const getCode = (phone) => http.get('auth/code/send', { phone });
+const getCode = (phone) => http.get('user/code', { phone });
 // update
 const updateWxInfo = ({code, encryptedData, iv, token}) => http.post('user/updateInfo', {code, encryptedData, iv}, {
     'Content-Type': 'application/x-www-form-urlencoded',
