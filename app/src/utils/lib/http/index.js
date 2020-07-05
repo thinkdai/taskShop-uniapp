@@ -92,21 +92,8 @@ export const request = (url, method = 'GET', data = {}, header = {}, map = false
         }
         // 缓存上一次的请求
         originRequestOpts = requestOpts;
-        
-        // 有token的时候，每个请求都带上token
-        // if(url !== 'user/info') {
-        //     if(!store.getters.token) {
-        //         getTokenSync(() => {
-        //             requestOpts['header']['http-jwt'] = store.getters.token;
-        //             uni.request(requestOpts);
-        //         });
-        //     }else {
-        //         requestOpts['header']['http-jwt'] = store.getters.token;
-        //         uni.request(requestOpts);
-        //     }
-        // }else {
-            uni.request(requestOpts);
-        // }
+
+        uni.request(requestOpts);
     });
 };
 

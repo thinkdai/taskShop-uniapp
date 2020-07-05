@@ -28,11 +28,11 @@
             <view class="form_item flex_layout">
                 <text class="label fz-16">密码</text>
                 <input v-model="form.password" 
-                       type="number"
+                       type="password"
                        class="item_input fz-16"
                        placeholder-class="input_placeholder-class"
                        placeholder="请输入密码"
-                       @blur="handlerblur" />
+                       @blur="handlerPassblur" />
             </view>
             <view class="error-tip fz-10">{{ passwordError ? '请输入密码' : '' }}</view>
         </view>
@@ -56,7 +56,7 @@
                 pageSource:'me',
                 phoneError: false, // 手机号出错
                 codeError: false, // 验证码出错
-                passwordError: false, // 密码
+                passwordError: false, // 请输入密码
                 sendCoding: 1, // 发送验证码
                 time: 60 // 倒计时
             };
@@ -75,6 +75,7 @@
                     !this.phoneError && utils.tip.alert('请输入手机号码');
                     return;
                 }
+        
                 const res = await api.user.getCode(this.form.phone);
                 utils.tip.success('发送成功');
                 this.sendCoding = 2;
@@ -96,51 +97,37 @@
                 // 是否是手机号码
                 this.phoneError = !utils.util.vailPhone(this.form.phone);
             },
+            handlerPassblur() {
+                // 密码
+                this.passwordError = !this.form.password;
+            },
             // 确定
             async submit() {
                 // 1. 电话号码正确 有值
                 // 2. 验证码 有值
-                const validCondition = this.phoneError || !this.form.phone || !this.form.code;
+                const validCondition = this.phoneError || this.passwordError || !this.form.phone || !this.form.code || !this.form.password;
                 if (validCondition) {
                     return;
                 }
-                const res = await api.user.bindPhone(Object.assign(this.form, {
-                    token: this.$store.getters.token
-                }));
-                if (res.usCode) {
-                    switch(res.usCode) {
-                    // 手机号码被占用
-                    case 100101:
-                        utils.tip.alert('手机号码被占用');
-                        break;
-                    // 验证码错误
-                    case 100202:
-                        this.codeError = true;
-                        this.form.code = '';
-                        // 重新获取(不计时)
-                        this.sendCoding = 3;
-                        break;
-                    default: break;
-                    }
-                } else {
-                    const { data } = res;
-                    this.$store.dispatch('setToken', data.token);
-                    if (data.userInfo.uid) {
-                        // 存入vuex
-                        this.$store.dispatch('setUserInfo', data.userInfo);
-                        this.$store.dispatch('setLoginFlag', true);
-                    } else {
-                        this.$store.dispatch('setLoginFlag', false);
-                    }
-                    // 返回
-                    if(this.pageSource === 'me') {
-                        uni.switchTab({
-                            url: '/pages/me/index'
-                        });  
-                    }else {
-                        // 返回操作页面
-                        uni.navigateBack({delta:2});
-                    }
+                const res = await api.user.bindPhone(this.form);
+                console.log(res);
+                // const { data } = res;
+                // this.$store.dispatch('setToken', data.token);
+                // if (data.userInfo.uid) {
+                //     // 存入vuex
+                //     this.$store.dispatch('setUserInfo', data.userInfo);
+                //     this.$store.dispatch('setLoginFlag', true);
+                // } else {
+                //     this.$store.dispatch('setLoginFlag', false);
+                // }
+                // 返回
+                if(this.pageSource === 'me') {
+                    uni.switchTab({
+                        url: '/pages/me/index'
+                    });  
+                }else {
+                    // 返回操作页面
+                    uni.navigateBack({delta:2});
                 }
             }
         }
