@@ -2,9 +2,9 @@ const { exec } = require('../../db/mysql');
 
 //登录
 const login = (loginInfo) => {
-	let { username, password } = loginInfo;
-	const sql = "select username from `pc-user` where username = "+ `'${username}'` + " and password = " + `'${password}'`;
-	console.log(sql);
+	let { phone, password } = loginInfo;
+	const sql = "select * from `app-user` where phone = "+ `'${phone}'` + " and password = " + `'${password}'`;
+
 	return exec(sql).then(rows => {
 		console.log(rows);
 		return rows[0] || {};

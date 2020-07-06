@@ -18,7 +18,7 @@ router.post('/create', async function(req, res) {
 		msg: ''
 	};
 	// 校验验证码正确性
-	// message.checkCode({ phoneNumber : phone, code: code }, async function() {
+	message.checkCode({ phoneNumber : phone, code: code }, async function() {
 		try {
 			const sqlRes = await createUser({
 				password,
@@ -62,11 +62,11 @@ router.post('/create', async function(req, res) {
 				new ErrorModel(errorObj,"新增用户信息失败")
 			);
 		}
-	// }, function (e) {
-	// 	res.json(
-	// 		new ErrorModel(e, '新增用户信息失败')
-	// 	);
-	// });
+	}, function (e) {
+		res.json(
+			new ErrorModel(e, '新增用户信息失败')
+		);
+	});
 });
 
 /*
@@ -110,7 +110,7 @@ router.get('/info', async function (req, res) {
 		const tokenStr = until.cookieToJson(cookie);
 		// 检查token是否有效（过期和非法）
 		const user = token.checkToken(tokenStr);
-		console.log(user);
+
 		res.json(
 			new SuccessModel(user, '获取用户信息成功')
 		);
@@ -123,43 +123,44 @@ router.get('/info', async function (req, res) {
 
 
 /* 登录 */
-// router.post('/login', function(req, res) {
-// 	let { username, password } = req.body;
-// 	let flag = false;
-// 	// 参数校验
-// 	const mapRules = new Map([
-// 		[username, { vaild: '用户名不能为空' }],
-// 		[password, { vaild: '密码不能为空' }]
-// 	]);
-// 	for (let [key, value] of mapRules.entries()) {
-// 		if(!key) {
-// 			let { vaild } = value;
-// 			flag = true;
-// 			res.json(
-// 				new ErrorModel(vaild)
-// 			);
-// 			break;
-// 		}
-// 	}
-// 	if(flag) return;
-// 	login(req.body).then(data => {
-// 		// username查询到的用户名
-// 		let { username } = data;
+router.post('/login', function(req, res) {
+	let { phone, password } = req.body;
+	let flag = false;
+	// 参数校验
+	const mapRules = new Map([
+		[phone, { vaild: '电话号码不能为空' }],
+		[password, { vaild: '密码不能为空' }]
+	]);
+	for (let [key, value] of mapRules.entries()) {
+		if(!key) {
+			let { vaild } = value;
+			flag = true;
+			res.json(
+				new ErrorModel(vaild)
+			);
+			break;
+		}
+	}
 
-// 		if(username) {
-// 			// 设置token
-// 			//设置token
-// 			token.setToken({user: username, res});
-// 			res.json(
-// 				new SuccessModel(data)
-// 			);
-// 		} else {
-// 			res.json(
-// 				new ErrorModel("登陆失败")
-// 			);
-// 		}
-// 	});
-// });
+	if(flag) return;
+
+	login(req.body).then(data => {
+		// username查询到的用户名
+		const { id, phone, nickname: name, status  } = data;
+
+		if(phone) {
+			//设置token
+			token.setToken({ id, phone, nickName: name, status }, res);
+			res.json(
+				new SuccessModel(data)
+			);
+		} else {
+			res.json(
+				new ErrorModel("登陆失败")
+			);
+		}
+	});
+});
 
 // /* 查询用户 */
 // router.get('/list', function(req, res) {
