@@ -1,3 +1,5 @@
+import api from '@/api/api';
+
 const state = {
     userInfo: null,
     token: '',
@@ -29,6 +31,26 @@ const mutations = {
 };
 
 const actions = {
+    userInfo({commit}) {
+        return new Promise((resolve, reject) => {
+            api.user.getUserInfo()
+                .then(res => {
+                    const { data } = res;
+                    if (data && data.phone) {
+                        commit('SET_USERINFO', data);
+                        commit('SET_LOGIN_FLAG', true);
+                        resolve(data);
+                    } else {
+                        commit('SET_USERINFO', {});
+                        commit('SET_LOGIN_FLAG', false);
+                        reject(res);
+                    }
+                })
+                .catch(err => {
+                    reject(err);
+                })
+        });
+    },
     setUserInfo({ commit }, data) {
         commit('SET_USERINFO', data);
     },

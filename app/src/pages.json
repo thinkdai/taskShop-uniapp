@@ -26,7 +26,15 @@
 				{
 					"path": "bindPhone",
 					"style": {
-						"navigationBarTitleText": "任务商城",
+						"navigationBarTitleText": "任务商城-注册",
+						"backgroundColor": "#fff",
+						"enablePullDownRefresh": true
+					}
+				},
+				{
+					"path": "login",
+					"style": {
+						"navigationBarTitleText": "任务商城-登录",
 						"backgroundColor": "#fff",
 						"enablePullDownRefresh": true
 					}

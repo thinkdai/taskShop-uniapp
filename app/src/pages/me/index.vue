@@ -5,10 +5,14 @@
                 <image src="/static/image/me/user.png" class="avatar"></image>
                 <view class="personal_wrap">
                     <block v-if="hasLogin">
-                        <view class="name_wrap"></view>
+                        <view class="name_wrap">{{ userInfo.nickName }}</view>
                     </block>
                     <view v-else class="name_wrap fz-20" @tap="login">hi! 请登录~</view>
                 </view>
+            </view>
+            <view v-if="hasLogin" class="setting-wrap flex_layout">
+                <text class="iconfont icon-icon-test15 fz-12"></text>
+                <text class="setting mar-left-8 fz-12">账户设置</text>
             </view>
         </view>
         <!-- 我的任务分类 -->
@@ -30,7 +34,7 @@
     export default {
         data() {
             return {
-
+                userInfo: {}
             };
         },
         computed: {
@@ -38,10 +42,21 @@
                 return this.$store.getters.hasLogin;
             }
         },
+        onLoad() {
+            this.loadUserData();
+        },
         methods: {
+            async loadUserData() {
+                try {
+                    const res = await this.$store.dispatch('userInfo');
+                    this.userInfo = res;
+                } catch(e) {
+                    console.error('登录失败');
+                }
+            },
             login() {
                 uni.navigateTo({
-                    url: `/subPackages/me/bindPhone`
+                    url: `/subPackages/me/login`
                 });
             }
         }
@@ -60,6 +75,14 @@
         border-radius: 0 0 600rpx 600rpx/0 0 40rpx 40rpx;
         min-height: 220rpx;
         padding-top: 50rpx;
+        .setting-wrap {
+            position: absolute;
+            top: 0;
+            right: 30rpx;
+            height: 80rpx;
+            line-height: 80rpx;
+            color: rgba(76,0,0,1);
+        }
     }
     .user-info {
         padding: 0 0 20rpx 30rpx;
