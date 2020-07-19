@@ -45,13 +45,12 @@ router.post('/login', function(req, res) {
 	login(req.body).then(data => {
 		// username查询到的用户名
 		let { username } = data;
-
 		if(username) {
 			// 设置token
 			//设置token
-			token.setToken({tokenPayload: {
+			token.setToken({
 				user: username
-			}, res});
+			}, res);
 			res.json(
 				new SuccessModel(data)
 			);
@@ -82,7 +81,7 @@ router.get('/userInfo', function (req, res) {
 		// 检查token是否有效（过期和非法）
 		const user = token.checkToken(tokenStr);
 		res.json(
-			new SuccessModel({username: user})
+			new SuccessModel({username: user.user})
 		);
 	} catch(e) {
 		res.json(

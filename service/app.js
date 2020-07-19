@@ -29,17 +29,22 @@ app.use(function(req, res, next) {
 app.use(function(req, res, next) {
   // pc的token与app的token分开
   if (req.originalUrl.indexOf('apiPc') != -1) {
+    if (config.tokenApi.indexOf(req.path) == -1) {
+      next();
+      return;
+    }
     // 拿取token 数据 按照自己传递方式写
     const cookie = req.headers['cookie'];
     const token = until.cookieToJson(cookie);
+    console.log(token);
     // 检查token是否有效（过期和非法）
     const user = tokenUtil.checkToken(token);
-
+    console.log(user);
     if (user) {
       //将当前用户的信息挂在req对象上，方便后面的路由方法使用
       req.user = user;
       // 续期
-      tokenUtil.setToken({user,res});
+      tokenUtil.setToken({user: user.user}, res);
       next(); //继续下一步路由
     } else {
       //不需要登录态域名白名单

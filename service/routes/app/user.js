@@ -35,7 +35,7 @@ router.post('/create', async function(req, res) {
 					token.setToken({ id, phone: phoneTmp, nickName: name, status }, res);
 					// 插入成功
 					res.json(
-						new SuccessModel(userRes[0],"新增用户信息成功")
+						new SuccessModel({ id, phone: phoneTmp, nickname: name, status },"新增用户信息成功")
 					); 
 				} catch(e) {
 					res.json(
@@ -152,7 +152,7 @@ router.post('/login', function(req, res) {
 			//设置token
 			token.setToken({ id, phone, nickName: name, status }, res);
 			res.json(
-				new SuccessModel(data)
+				new SuccessModel({ id, phone, nickname: name, status }, '登录成功')
 			);
 		} else {
 			res.json(
