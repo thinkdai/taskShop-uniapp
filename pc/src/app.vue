@@ -6,7 +6,7 @@
             <!-- 登录页面不需要侧边栏以及底部 -->
             <BusiLeftLayout v-if="$route.meta.requireLogin" />
             <!-- 占位盒子 -->
-            <BusiBlankBox width="160px" height="calc(100vh - 100px)" />
+            <BusiBlankBox v-if="$route.meta.requireLogin" width="160px" height="calc(100vh - 100px)" />
             <section 
                 class="app-container" 
                 :class="{
