@@ -13,7 +13,7 @@ module.exports = smart(base,{
     },
     //必须安装webpack-dev-serve
     devServer: { //开发服务的配置
-        port: 8080, //端口
+        port: 9000, //端口
         progress: true, //进度条
         // contentBase: '../client', //找到对应的文件夹开启服务
         compress: true, //启动压缩
