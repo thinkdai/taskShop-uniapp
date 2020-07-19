@@ -1,5 +1,5 @@
 <template>
-	<view class="content">
+	<view class="page">
 		<!-- banner区域 -->
 		<view class="banner__warpper">
 			<swiper 
@@ -17,9 +17,37 @@
 			</swiper>
 		</view>
 		<!-- 折扣试用 -->
-		<view class="try-task__warpper">
-			<view class="left"></view>
-			<view class="right"></view>
+		<view class="try-task__warpper flex_layout">
+			<view class="left">
+				<image
+					class="img_wrap"
+					src="/static/image/me/test.jpg"
+					mode="widthFix"
+					lazy-load="false">
+				</image>
+				<view class="desc-wrap">
+					<view class="title fz-13">polo衫直降,快来买</view>
+					<view class="tool_wrap flex_layout_b">
+						<text class="prize fz-13">$2.5</text>
+						<button class="btn fz-13">免费试用</button>
+					</view>
+				</view>
+			</view>
+			<view class="right">
+				<image
+					class="img_wrap"
+					src="/static/image/me/test1.jpg"
+					mode="widthFix"
+					lazy-load="false">
+				</image>
+				<view class="desc-wrap">
+					<view class="title fz-13">polo衫直降,快来买</view>
+					<view class="tool_wrap flex_layout_b">
+						<text class="prize fz-13">$2.5</text>
+						<button class="btn fz-13">免费试用</button>
+					</view>
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -46,6 +74,11 @@
 </script>
 
 <style lang="scss" scoped>
+.page {
+	background-color: #f6f6f6;
+	width: 100vw;
+	height: 100vh;
+}
 .banner__warpper {
 	.swiper {
 		width: 690rpx;
@@ -61,8 +94,47 @@
 			border-radius: 8rpx;
 		}
 	}
-	.try-task__warpper {
-		padding: 20px 30px 0;
+}
+.try-task__warpper {
+	width: 100vw;
+	padding: 30rpx 30rpx 0;
+	box-sizing: border-box;
+	align-items: flex-start;
+	border-radius: 10rpx;
+	.left, .right {
+		flex: 1;
+		background-color: #fff;
+		padding: 10rpx;
+		box-sizing: border-box;
+		.img_wrap {
+			width: 100%;
+		}
+		.desc-wrap {
+			margin-top: 10rpx;
+			.title {
+				line-height: 30rpx;
+				color: #777;
+			}
+		}
+		.tool_wrap {
+			margin-top: 20rpx;
+			.prize {
+				color: #f63a00;
+			}
+			.btn {
+				display: inline-block;
+				padding: 12rpx 16rpx;
+				background-color: #FCE2E4;
+				border-radius: 4rpx;
+				font-weight: normal;
+				border: 1px solid #FCE2E4;
+				color: #f63a00;
+				line-height: 1;
+			}
+		}
+	}
+	.right {
+		margin-left: 20rpx;
 	}
 }
 </style>
