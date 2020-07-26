@@ -8,9 +8,7 @@
 				:interval="3000" 
 				:duration="1000"
 				:circular="true" 
-				:current="swiperCurrent" 
-				@change="changeSwiper"
-				@transition="transitionSwiper">
+				:current="swiperCurrent">
 				<swiper-item v-for="item in swiperImg" :key="item.id">
 					<image class="swiper-item" :src="item.image_url" mode="scaleToFill" @tap="jumpUrl(item)"></image>
 				</swiper-item>
@@ -18,32 +16,32 @@
 		</view>
 		<!-- 折扣试用 -->
 		<view class="try-task__warpper flex_layout">
-			<view class="left">
+			<view class="left" v-for="item in leftArr" :key="item.id">
 				<image
 					class="img_wrap"
-					src="/static/image/me/test.jpg"
+					:src="item.paiPicUrl"
 					mode="widthFix"
 					lazy-load="false">
 				</image>
 				<view class="desc-wrap">
-					<view class="title fz-13">polo衫直降,快来买</view>
+					<view class="title fz-13">{{ item.title }}</view>
 					<view class="tool_wrap flex_layout_b">
-						<text class="prize fz-13">$2.5</text>
+						<text class="prize fz-13">{{ item.paiPrice }}</text>
 						<button class="btn fz-13">免费试用</button>
 					</view>
 				</view>
 			</view>
-			<view class="right">
+			<view class="right" v-for="item in rightArr" :key="item.id">
 				<image
 					class="img_wrap"
-					src="/static/image/me/test1.jpg"
+					:src="item.paiPicUrl"
 					mode="widthFix"
 					lazy-load="false">
 				</image>
 				<view class="desc-wrap">
-					<view class="title fz-13">polo衫直降,快来买</view>
+					<view class="title fz-13">{{ item.title }}</view>
 					<view class="tool_wrap flex_layout_b">
-						<text class="prize fz-13">$2.5</text>
+						<text class="prize fz-13">{{ item.paiPrice }}</text>
 						<button class="btn fz-13">免费试用</button>
 					</view>
 				</view>
@@ -53,22 +51,38 @@
 </template>
 
 <script>
+	import api from '@/api/api';
+
 	export default {
 		data() {
 			return {
 				title: 'Hello',
-				swiperImg: [{
-					id: 1,
-					image_url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1593364559547&di=5af0b26d071a711ea2c72fe973caadc3&imgtype=0&src=http%3A%2F%2Fimglf3.nosdn.127.net%2Fimg%2FL0lHRjFqbkVQa2pIQXFwYWE2WUd6Q3A4dUN5aFJhZlBOaTd0b3VDVFlQNUNTeGpQUGpZbGF3PT0.jpg%3FimageView%26thumbnail%3D1680x0%26quality%3D96%26stripmeta%3D0%26type%3Djpg%257Cwatermark%26type%3D2%26text%3Dwqkg',
-					url: ''
-				}]
+				swiperImg: [],
+				swiperCurrent: 1,
+				params: {
+					page: 1,
+					pageSize: 10
+				},
+				leftArr: [],
+				rightArr: []
 			}
 		},
 		onLoad() {
-
+			this.loadData();
 		},
 		methods: {
-
+			// 获取首页数据
+			async loadData() {
+				const res = await api.home.taskList(this.params);
+				this.swiperImg = res.data.list;
+				this.swiperImg.forEach((_, index) => {
+					if (index % 2 == 0) {
+						this.leftArr.push(_);
+					} else {
+						this.rightArr.push(_);
+					}
+				});
+			}
 		}
 	}
 </script>
