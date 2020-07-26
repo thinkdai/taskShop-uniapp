@@ -16,7 +16,11 @@
 		</view>
 		<!-- 折扣试用 -->
 		<view class="try-task__warpper flex_layout">
-			<view class="left" v-for="item in leftArr" :key="item.id">
+			<view 
+				class="left" 
+				v-for="item in leftArr" 
+				:key="item.id"
+				@tap="jumpUrl(item.id)">
 				<image
 					class="img_wrap"
 					:src="item.paiPicUrl"
@@ -31,7 +35,11 @@
 					</view>
 				</view>
 			</view>
-			<view class="right" v-for="item in rightArr" :key="item.id">
+			<view 
+				class="right" 
+				v-for="item in rightArr" 
+				:key="item.id"
+				@tap="jumpUrl(item.id)">
 				<image
 					class="img_wrap"
 					:src="item.paiPicUrl"
@@ -81,6 +89,12 @@
 					} else {
 						this.rightArr.push(_);
 					}
+				});
+			},
+			// 跳转链接
+			jumpUrl(id) {
+				uni.navigateTo({
+					url: `/subPackages/home/detail?id=${id}`
 				});
 			}
 		}

@@ -41,6 +41,19 @@
 					}
 				}
 			]
+		},
+		{
+			"root": "subPackages/home",
+			"pages": [
+				{
+					"path": "detail",
+					"style": {
+						"navigationBarTitleText": "任务商城-详情",
+						"backgroundColor": "#fff",
+						"enablePullDownRefresh": true
+					}
+				}
+			]
 		}
 	],
 	"globalStyle": {
