@@ -36,10 +36,10 @@ app.use(function(req, res, next) {
     // 拿取token 数据 按照自己传递方式写
     const cookie = req.headers['cookie'];
     const token = until.cookieToJson(cookie);
-    console.log(token);
+
     // 检查token是否有效（过期和非法）
     const user = tokenUtil.checkToken(token);
-    console.log(user);
+
     if (user) {
       //将当前用户的信息挂在req对象上，方便后面的路由方法使用
       req.user = user;

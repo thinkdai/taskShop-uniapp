@@ -162,32 +162,4 @@ router.post('/login', function(req, res) {
 	});
 });
 
-// /* 查询用户 */
-// router.get('/list', function(req, res) {
-  
-// 	queryUser().then(data => {
-// 		res.json(
-// 			new SuccessModel(data)
-// 		);
-// 	});
-// });
-
-// /* 获取当前用户信息 */
-// router.get('/userInfo', function (req, res) {
-// 	try {
-// 		// 拿取token 数据 按照自己传递方式写
-// 		const cookie = req.headers['cookie'];
-// 		const tokenStr = until.cookieToJson(cookie);
-// 		// 检查token是否有效（过期和非法）
-// 		const user = token.checkToken(tokenStr);
-// 		res.json(
-// 			new SuccessModel({username: user})
-// 		);
-// 	} catch(e) {
-// 		res.json(
-// 			new ErrorModel(e)
-// 		);
-// 	}
-// });
-
 module.exports = router;
